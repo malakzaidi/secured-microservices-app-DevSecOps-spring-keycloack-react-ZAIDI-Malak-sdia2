@@ -1,0 +1,353 @@
+npm verb cli /usr/bin/node /usr/bin/npm
+npm info using npm@9.2.0
+npm info using node@v18.19.1
+npm verb title npm install
+npm verb argv "install" "--loglevel" "silly"
+npm verb logfile logs-max:10 dir:/home/malak/.npm/_logs/2026-01-11T15_53_10_275Z-
+npm verb logfile /home/malak/.npm/_logs/2026-01-11T15_53_10_275Z-debug-0.log
+npm sill logfile done cleaning log files
+npm sill idealTree buildDeps
+npm sill fetch manifest @keycloak/keycloak-js@^23.0.1
+npm notice Access token expired or revoked. Please try logging in again.
+npm http fetch GET 404 https://registry.npmjs.org/@keycloak%2fkeycloak-js 793ms (cache skip)
+npm notice Access token expired or revoked. Please try logging in again.
+npm http fetch GET 404 https://registry.npmjs.org/@keycloak%2fkeycloak-js 350ms (cache skip)
+npm sill fetch manifest @testing-library/jest-dom@^5.16.4
+npm http fetch GET 200 https://registry.npmjs.org/@testing-library%2fjest-dom 215ms (cache miss)
+npm sill fetch manifest @testing-library/react@^13.3.0
+npm http fetch GET 200 https://registry.npmjs.org/@testing-library%2freact 412ms (cache miss)
+npm sill fetch manifest react@^18.2.0
+npm http fetch GET 200 https://registry.npmjs.org/react 8799ms (cache miss)
+npm sill fetch manifest react-dom@^18.2.0
+npm http fetch GET 200 https://registry.npmjs.org/react-dom 9130ms (cache miss)
+npm sill fetch manifest @testing-library/user-event@^13.5.0
+npm http fetch GET 200 https://registry.npmjs.org/@testing-library%2fuser-event 1107ms (cache miss)
+npm sill fetch manifest @testing-library/dom@>=7.21.4
+npm http fetch GET 200 https://registry.npmjs.org/@testing-library%2fdom 1116ms (cache miss)
+npm sill fetch manifest axios@^1.6.0
+npm http fetch GET 200 https://registry.npmjs.org/axios 395ms (cache miss)
+npm sill fetch manifest bootstrap@^5.3.0
+npm http fetch GET 200 https://registry.npmjs.org/bootstrap 505ms (cache miss)
+npm sill fetch manifest @popperjs/core@^2.11.8
+npm http fetch GET 200 https://registry.npmjs.org/@popperjs%2fcore 572ms (cache miss)
+npm sill fetch manifest react-bootstrap@^2.8.0
+npm http fetch GET 200 https://registry.npmjs.org/react-bootstrap 817ms (cache miss)
+npm sill fetch manifest @types/react@>=16.14.8
+npm http fetch GET 200 https://registry.npmjs.org/@types%2freact 2743ms (cache miss)
+npm sill fetch manifest react-router-dom@^6.14.0
+npm http fetch GET 200 https://registry.npmjs.org/react-router-dom 1647ms (cache miss)
+npm sill fetch manifest react-scripts@5.0.1
+npm http fetch GET 200 https://registry.npmjs.org/react-scripts 938ms (cache miss)
+npm sill fetch manifest typescript@^3.2.1 || ^4
+npm http fetch GET 200 https://registry.npmjs.org/typescript 13515ms (cache miss)
+npm sill fetch manifest web-vitals@^2.1.4
+npm http fetch GET 200 https://registry.npmjs.org/web-vitals 443ms (cache miss)
+npm sill fetch manifest eslint@^8.45.0
+npm http fetch GET 200 https://registry.npmjs.org/eslint 1414ms (cache miss)
+npm sill fetch manifest eslint-plugin-react@^7.33.0
+npm http fetch GET 200 https://registry.npmjs.org/eslint-plugin-react 802ms (cache miss)
+npm sill placeDep ROOT @keycloak/keycloak-js@ OK for: microservices-frontend@0.1.0 want: ^23.0.1
+npm sill placeDep ROOT @testing-library/jest-dom@5.17.0 OK for: microservices-frontend@0.1.0 want: ^5.16.4
+npm sill placeDep ROOT @testing-library/react@13.4.0 OK for: microservices-frontend@0.1.0 want: ^13.3.0
+npm sill placeDep ROOT react@18.3.1 OK for: @testing-library/react@13.4.0 want: ^18.0.0
+npm sill placeDep ROOT react-dom@18.3.1 OK for: @testing-library/react@13.4.0 want: ^18.0.0
+npm sill placeDep ROOT @testing-library/user-event@13.5.0 OK for: microservices-frontend@0.1.0 want: ^13.5.0
+npm sill placeDep ROOT @testing-library/dom@10.4.1 OK for: @testing-library/user-event@13.5.0 want: >=7.21.4
+npm sill placeDep ROOT axios@1.13.2 OK for: microservices-frontend@0.1.0 want: ^1.6.0
+npm sill placeDep ROOT bootstrap@5.3.8 OK for: microservices-frontend@0.1.0 want: ^5.3.0
+npm sill placeDep ROOT @popperjs/core@2.11.8 OK for: bootstrap@5.3.8 want: ^2.11.8
+npm sill placeDep ROOT eslint@8.57.1 OK for: microservices-frontend@0.1.0 want: ^8.45.0
+npm sill placeDep ROOT eslint-plugin-react@7.37.5 OK for: microservices-frontend@0.1.0 want: ^7.33.0
+npm sill placeDep ROOT react-bootstrap@2.10.10 OK for: microservices-frontend@0.1.0 want: ^2.8.0
+npm sill placeDep ROOT react-router-dom@6.30.3 OK for: microservices-frontend@0.1.0 want: ^6.14.0
+npm sill placeDep ROOT react-scripts@5.0.1 OK for: microservices-frontend@0.1.0 want: 5.0.1
+npm sill placeDep ROOT web-vitals@2.1.4 OK for: microservices-frontend@0.1.0 want: ^2.1.4
+npm sill fetch manifest chalk@^3.0.0
+npm sill fetch manifest lodash@^4.17.15
+npm sill fetch manifest redent@^3.0.0
+npm sill fetch manifest aria-query@^5.0.0
+npm sill fetch manifest css.escape@^1.5.1
+npm sill fetch manifest @babel/runtime@^7.9.2
+npm sill fetch manifest @adobe/css-tools@^4.0.1
+npm sill fetch manifest dom-accessibility-api@^0.5.6
+npm sill fetch manifest @types/testing-library__jest-dom@^5.9.1
+npm sill fetch manifest @babel/runtime@^7.12.5
+npm sill fetch manifest @types/react-dom@^18.0.0
+npm sill fetch manifest @testing-library/dom@^8.5.0
+npm sill fetch manifest scheduler@^0.23.2
+npm sill fetch manifest loose-envify@^1.1.0
+npm sill fetch manifest lz-string@^1.5.0
+npm sill fetch manifest aria-query@5.3.0
+npm sill fetch manifest picocolors@1.1.1
+npm sill fetch manifest pretty-format@^27.0.2
+npm sill fetch manifest @babel/code-frame@^7.10.4
+npm sill fetch manifest @types/aria-query@^5.0.1
+npm sill fetch manifest dom-accessibility-api@^0.5.9
+npm sill fetch manifest follow-redirects@^1.15.6
+npm sill fetch manifest form-data@^4.0.4
+npm sill fetch manifest proxy-from-env@^1.1.0
+npm sill fetch manifest ajv@^6.12.4
+npm sill fetch manifest levn@^0.4.1
+npm sill fetch manifest chalk@^4.0.0
+npm sill fetch manifest debug@^4.3.2
+npm sill fetch manifest espree@^9.6.1
+npm sill fetch manifest ignore@^5.2.0
+npm sill fetch manifest esquery@^1.4.2
+npm sill fetch manifest esutils@^2.0.2
+npm sill fetch manifest find-up@^5.0.0
+npm sill fetch manifest globals@^13.19.0
+npm sill fetch manifest is-glob@^4.0.0
+npm sill fetch manifest js-yaml@^4.1.0
+npm sill fetch manifest doctrine@^3.0.0
+npm sill fetch manifest graphemer@^1.4.0
+npm sill fetch manifest minimatch@^3.1.2
+npm sill fetch manifest @eslint/js@8.57.1
+npm sill fetch manifest optionator@^0.9.3
+npm sill fetch manifest strip-ansi@^6.0.1
+npm sill fetch manifest text-table@^0.2.0
+npm sill fetch manifest cross-spawn@^7.0.2
+npm sill fetch manifest glob-parent@^6.0.2
+npm sill fetch manifest imurmurhash@^0.1.4
+npm sill fetch manifest eslint-scope@^7.2.2
+npm sill fetch manifest lodash.merge@^4.6.2
+npm sill fetch manifest is-path-inside@^3.0.3
+npm sill fetch manifest fast-deep-equal@^3.1.3
+npm sill fetch manifest natural-compare@^1.4.0
+npm sill fetch manifest @eslint/eslintrc@^2.1.4
+npm sill fetch manifest @nodelib/fs.walk@^1.2.8
+npm sill fetch manifest file-entry-cache@^6.0.1
+npm sill fetch manifest eslint-visitor-keys@^3.4.3
+npm sill fetch manifest escape-string-regexp@^4.0.0
+npm sill fetch manifest @ungap/structured-clone@^1.2.0
+npm sill fetch manifest @eslint-community/regexpp@^4.6.1
+npm sill fetch manifest @humanwhocodes/config-array@^0.13.0
+npm sill fetch manifest @eslint-community/eslint-utils@^4.2.0
+npm sill fetch manifest @humanwhocodes/module-importer@^1.0.1
+npm sill fetch manifest json-stable-stringify-without-jsonify@^1.0.1
+npm sill fetch manifest array-includes@^3.1.8
+npm sill fetch manifest array.prototype.findlast@^1.2.5
+npm sill fetch manifest array.prototype.flatmap@^1.3.3
+npm sill fetch manifest array.prototype.tosorted@^1.1.4
+npm sill fetch manifest doctrine@^2.1.0
+npm sill fetch manifest es-iterator-helpers@^1.2.1
+npm sill fetch manifest estraverse@^5.3.0
+npm sill fetch manifest hasown@^2.0.2
+npm sill fetch manifest jsx-ast-utils@^2.4.1 || ^3.0.0
+npm sill fetch manifest object.entries@^1.1.9
+npm sill fetch manifest object.fromentries@^2.0.8
+npm sill fetch manifest object.values@^1.2.1
+npm sill fetch manifest prop-types@^15.8.1
+npm sill fetch manifest resolve@^2.0.0-next.5
+npm sill fetch manifest semver@^6.3.1
+npm sill fetch manifest string.prototype.matchall@^4.0.12
+npm sill fetch manifest string.prototype.repeat@^1.0.0
+npm sill fetch manifest warning@^4.0.3
+npm sill fetch manifest invariant@^2.2.4
+npm sill fetch manifest classnames@^2.3.2
+npm sill fetch manifest @restart/ui@^1.9.4
+npm sill fetch manifest dom-helpers@^5.2.1
+npm sill fetch manifest @babel/runtime@^7.24.7
+npm sill fetch manifest @restart/hooks@^0.4.9
+npm sill fetch manifest uncontrollable@^7.2.1
+npm sill fetch manifest prop-types-extra@^1.1.0
+npm sill fetch manifest @types/prop-types@^15.7.12
+npm sill fetch manifest react-transition-group@^4.4.5
+npm sill fetch manifest @types/react-transition-group@^4.4.6
+npm sill fetch manifest react-router@6.30.3
+npm sill fetch manifest @remix-run/router@1.23.2
+npm sill fetch manifest bfj@^7.0.2
+npm sill fetch manifest jest@^27.4.3
+npm sill fetch manifest dotenv@^10.0.0
+npm sill fetch manifest semver@^7.3.5
+npm sill fetch manifest postcss@^8.4.4
+npm sill fetch manifest prompts@^2.4.2
+npm sill fetch manifest resolve@^1.20.0
+npm sill fetch manifest webpack@^5.64.4
+npm sill fetch manifest fs-extra@^10.0.0
+npm sill fetch manifest camelcase@^6.2.1
+npm sill fetch manifest babel-jest@^27.4.2
+npm sill fetch manifest css-loader@^6.5.1
+npm sill fetch manifest @babel/core@^7.16.0
+npm sill fetch manifest file-loader@^6.2.0
+npm sill fetch manifest sass-loader@^12.3.0
+npm sill fetch manifest tailwindcss@^3.0.2
+npm sill fetch manifest babel-loader@^8.2.3
+npm sill fetch manifest browserslist@^4.18.1
+npm sill fetch manifest jest-resolve@^27.4.2
+npm sill fetch manifest style-loader@^3.3.1
+npm sill fetch manifest @svgr/webpack@^5.5.0
+npm sill fetch manifest dotenv-expand@^5.1.0
+npm sill fetch manifest react-refresh@^0.11.0
+npm sill fetch manifest postcss-loader@^6.2.1
+npm sill fetch manifest react-dev-utils@^12.0.1
+npm sill fetch manifest postcss-normalize@^10.0.1
+npm sill fetch manifest source-map-loader@^3.0.0
+npm sill fetch manifest identity-obj-proxy@^3.0.0
+npm sill fetch manifest postcss-preset-env@^7.0.1
+npm sill fetch manifest react-app-polyfill@^3.0.0
+npm sill fetch manifest resolve-url-loader@^4.0.0
+npm sill fetch manifest webpack-dev-server@^4.6.0
+npm sill fetch manifest html-webpack-plugin@^5.5.0
+npm sill fetch manifest jest-watch-typeahead@^1.0.0
+npm sill fetch manifest eslint-webpack-plugin@^3.1.1
+npm sill fetch manifest terser-webpack-plugin@^5.2.5
+npm sill fetch manifest babel-preset-react-app@^10.0.1
+npm sill fetch manifest postcss-flexbugs-fixes@^5.0.2
+npm sill fetch manifest workbox-webpack-plugin@^6.4.1
+npm sill fetch manifest eslint-config-react-app@^7.0.1
+npm sill fetch manifest mini-css-extract-plugin@^2.4.5
+npm sill fetch manifest webpack-manifest-plugin@^4.0.2
+npm sill fetch manifest css-minimizer-webpack-plugin@^3.2.0
+npm sill fetch manifest babel-plugin-named-asset-import@^0.3.8
+npm sill fetch manifest case-sensitive-paths-webpack-plugin@^2.4.0
+npm sill fetch manifest @pmmmwh/react-refresh-webpack-plugin@^0.5.3
+npm sill fetch manifest fsevents@^2.3.2
+npm http fetch GET 200 https://registry.npmjs.org/chalk 530ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/css.escape 588ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/redent 593ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/lodash 767ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/loose-envify 752ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/aria-query 3683ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/@types%2faria-query 4069ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/aria-query 5744ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/dom-accessibility-api 6179ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/pretty-format 6511ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/dom-accessibility-api 7895ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/follow-redirects 8054ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/@types%2ftesting-library__jest-dom 8162ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/lz-string 8167ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/ajv 8866ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/chalk 8892ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/debug 8911ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/esutils 9126ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/esquery 9147ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/find-up 9292ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/js-yaml 9902ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/ignore 10166ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/doctrine 10769ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/globals 10813ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/espree 11110ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/optionator 11589ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/minimatch 12483ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/form-data 12654ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/text-table 12682ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/strip-ansi 12756ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/glob-parent 12942ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/picocolors 13086ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/cross-spawn 13226ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/imurmurhash 13242ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/eslint-scope 13474ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/lodash.merge 13512ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/is-path-inside 13639ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/fast-deep-equal 13729ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/@eslint%2feslintrc 14084ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/is-glob 14236ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/@nodelib%2ffs.walk 14337ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/graphemer 14462ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/natural-compare 14587ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/@adobe%2fcss-tools 14769ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/@ungap%2fstructured-clone 14802ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/file-entry-cache 14828ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/json-stable-stringify-without-jsonify 14921ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/@humanwhocodes%2fmodule-importer 14943ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/eslint-visitor-keys 15000ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/@eslint-community%2feslint-utils 15130ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/@eslint-community%2fregexpp 15172ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/array.prototype.flatmap 15266ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/escape-string-regexp 15303ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/array.prototype.findlast 15616ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/array-includes 15666ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/@humanwhocodes%2fconfig-array 15939ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/@eslint%2fjs 16034ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/es-iterator-helpers 16256ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/object.entries 16288ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/object.fromentries 16395ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/doctrine 16482ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/object.values 16560ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/array.prototype.tosorted 16737ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/prop-types 16804ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/string.prototype.matchall 16875ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/jsx-ast-utils 17001ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/string.prototype.repeat 17040ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/invariant 17086ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/warning 17324ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/estraverse 17479ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/proxy-from-env 17711ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/dom-helpers 17724ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/@restart%2fui 17923ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/classnames 18027ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/@types%2fprop-types 18254ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/resolve 18830ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/prop-types-extra 18837ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/@types%2freact-transition-group 19270ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/levn 19529ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/@babel%2fruntime 20030ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/semver 20003ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/bfj 20903ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/hasown 22094ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/dotenv 23611ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/@babel%2fruntime 24603ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/prompts 26456ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/resolve 26661ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/camelcase 27094ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/fs-extra 28726ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/@types%2freact-dom 28859ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/uncontrollable 28902ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/postcss 29539ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/react-transition-group 29868ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/sass-loader 35189ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/@remix-run%2frouter 36371ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/browserslist 37435ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/semver 37528ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/@svgr%2fwebpack 38771ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/style-loader 39356ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/dotenv-expand 39473ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/source-map-loader 43621ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/identity-obj-proxy 43818ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/css-loader 43895ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/postcss-preset-env 46003ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/resolve-url-loader 47165ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/react-dev-utils 48742ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/postcss-normalize 49054ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/jest-watch-typeahead 49522ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/webpack-dev-server 50290ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/postcss-loader 50425ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/html-webpack-plugin 51284ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/postcss-flexbugs-fixes 51497ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/babel-jest 51822ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/eslint-webpack-plugin 51920ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/eslint-config-react-app 53276ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/jest-resolve 53963ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/react-app-polyfill 54432ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/webpack-manifest-plugin 54487ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/css-minimizer-webpack-plugin 54644ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/case-sensitive-paths-webpack-plugin 54885ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/babel-plugin-named-asset-import 55374ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/terser-webpack-plugin 55934ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/mini-css-extract-plugin 56126ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/fsevents 57192ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/babel-preset-react-app 58175ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/jest 58610ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/workbox-webpack-plugin 59146ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/scheduler 62810ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/@pmmmwh%2freact-refresh-webpack-plugin 63879ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/react-refresh 66855ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/webpack 67928ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/react-router 70864ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/tailwindcss 78006ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/@babel%2fruntime 163575ms (cache miss)
+npm sill placeDep node_modules/@testing-library/dom @babel/code-frame@ OK for: @testing-library/dom@10.4.1 want: ^7.10.4
+npm sill placeDep ROOT @babel/runtime@7.28.4 OK for: @testing-library/dom@10.4.1 want: ^7.12.5
+npm sill placeDep ROOT @types/aria-query@5.0.4 OK for: @testing-library/dom@10.4.1 want: ^5.0.1
+npm sill placeDep ROOT aria-query@5.3.0 OK for: @testing-library/dom@10.4.1 want: 5.3.0
+npm sill placeDep ROOT dom-accessibility-api@0.5.16 OK for: @testing-library/dom@10.4.1 want: ^0.5.9
+npm sill placeDep ROOT lz-string@1.5.0 OK for: @testing-library/dom@10.4.1 want: ^1.5.0
+npm sill placeDep ROOT picocolors@1.1.1 OK for: @testing-library/dom@10.4.1 want: 1.1.1
+npm sill placeDep ROOT pretty-format@27.5.1 OK for: @testing-library/dom@10.4.1 want: ^27.0.2
+npm sill fetch manifest dequal@^2.0.3
+npm sill fetch manifest react-is@^17.0.1
+npm sill fetch manifest ansi-regex@^5.0.1
+npm sill fetch manifest ansi-styles@^5.0.0
+npm http fetch GET 200 https://registry.npmjs.org/dequal 148ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/ansi-regex 412ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/ansi-styles 522ms (cache miss)
