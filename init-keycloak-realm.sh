@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🔧 Configuration de Keycloak..."
+echo "🔧 Initialisation du realm Keycloak..."
 
 # Attendre que Keycloak soit prêt
 echo "⏳ Attente du démarrage de Keycloak..."
@@ -23,6 +23,24 @@ fi
 
 echo "✅ Token obtenu avec succès"
 
+# Vérifier si le realm existe déjà
+REALM_EXISTS=$(curl -s -H "Authorization: Bearer $TOKEN" http://localhost:8180/admin/realms/microservices-realm | jq -r '.realm')
+
+if [ "$REALM_EXISTS" = "microservices-realm" ]; then
+  echo "ℹ️ Le realm 'microservices-realm' existe déjà. Aucune action nécessaire."
+  echo ""
+  echo "🎯 Comptes de test disponibles :"
+  echo "👑 Admin    : admin / admin123 (rôle ADMIN)"
+  echo "👤 Client   : client / client123 (rôle CLIENT)"
+  echo ""
+  echo "🌐 URLs disponibles :"
+  echo "🔐 Keycloak Admin : http://localhost:8180"
+  echo "⚛️  Frontend React : http://localhost:3002"
+  exit 0
+fi
+
+echo "❌ Le realm n'a pas été importé automatiquement. Création manuelle..."
+
 # Supprimer le realm s'il existe déjà
 echo "🗑️ Suppression du realm existant microservices-realm si présent..."
 curl -s -X DELETE http://localhost:8180/admin/realms/microservices-realm \
@@ -44,21 +62,24 @@ RESPONSE=$(curl -s -X POST http://localhost:8180/admin/realms \
     "bruteForceProtected": true
   }')
 echo "Response: $RESPONSE"
-if [ -n "$RESPONSE" ] && [ "$RESPONSE" != "{}" ]; then
-  echo "❌ Erreur lors de la création du realm: $RESPONSE"
-  exit 1
-fi
 
-# Supprimer le client s'il existe déjà
-echo "🗑️ Suppression du client existant microservices-client si présent..."
-CLIENT_ID=$(curl -s http://localhost:8180/admin/realms/microservices-realm/clients?clientId=microservices-client \
-  -H "Authorization: Bearer $TOKEN" | jq -r '.[0].id')
+# Créer les rôles
+echo "👥 Création des rôles ADMIN et CLIENT..."
+curl -s -X POST http://localhost:8180/admin/realms/microservices-realm/roles \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "ADMIN",
+    "description": "Administrator role with full access"
+  }'
 
-if [ "$CLIENT_ID" != "null" ] && [ -n "$CLIENT_ID" ]; then
-  curl -s -X DELETE http://localhost:8180/admin/realms/microservices-realm/clients/$CLIENT_ID \
-    -H "Authorization: Bearer $TOKEN"
-  echo "✅ Client existant supprimé"
-fi
+curl -s -X POST http://localhost:8180/admin/realms/microservices-realm/roles \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "CLIENT",
+    "description": "Client role with limited access"
+  }'
 
 # Créer le client microservices-client
 echo "📱 Création du client microservices-client..."
@@ -86,27 +107,9 @@ curl -s -X POST http://localhost:8180/admin/realms/microservices-realm/clients \
       "tls.client.certificate.bound.access.tokens": "false",
       "saml.authnstatement": "false",
       "display.on.consent.screen": "false",
-      "saml.onetimeuse.condition": "false"
-       "pkce.code.challenge.method": "S256",
+      "saml.onetimeuse.condition": "false",
+      "pkce.code.challenge.method": "S256"
     }
-  }'
-
-# Créer les rôles
-echo "👥 Création des rôles ADMIN et CLIENT..."
-curl -s -X POST http://localhost:8180/admin/realms/microservices-realm/roles \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "ADMIN",
-    "description": "Administrator role with full access"
-  }'
-
-curl -s -X POST http://localhost:8180/admin/realms/microservices-realm/roles \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "CLIENT",
-    "description": "Client role with limited access"
   }'
 
 # Créer l'utilisateur admin
@@ -146,31 +149,6 @@ curl -s -X POST http://localhost:8180/admin/realms/microservices-realm/users \
     }],
     "realmRoles": ["CLIENT"]
   }'
-
-# Assigner les rôles aux utilisateurs
-echo "🔗 Assignation des rôles aux utilisateurs..."
-
-# Obtenir l'ID de l'utilisateur admin
-ADMIN_ID=$(curl -s http://localhost:8180/admin/realms/microservices-realm/users?username=admin \
-  -H "Authorization: Bearer $TOKEN" | jq -r '.[0].id')
-
-# Assigner le rôle ADMIN à l'utilisateur admin
-curl -s -X POST http://localhost:8180/admin/realms/microservices-realm/users/$ADMIN_ID/role-mappings/realm \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '[{"id": "'$(curl -s http://localhost:8180/admin/realms/microservices-realm/roles/ADMIN \
-    -H "Authorization: Bearer $TOKEN" | jq -r '.id')'", "name": "ADMIN"}]'
-
-# Obtenir l'ID de l'utilisateur client
-CLIENT_ID=$(curl -s http://localhost:8180/admin/realms/microservices-realm/users?username=client \
-  -H "Authorization: Bearer $TOKEN" | jq -r '.[0].id')
-
-# Assigner le rôle CLIENT à l'utilisateur client
-curl -s -X POST http://localhost:8180/admin/realms/microservices-realm/users/$CLIENT_ID/role-mappings/realm \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '[{"id": "'$(curl -s http://localhost:8180/admin/realms/microservices-realm/roles/CLIENT \
-    -H "Authorization: Bearer $TOKEN" | jq -r '.id')'", "name": "CLIENT"}]'
 
 echo "🎉 Configuration de Keycloak terminée avec succès !"
 echo ""

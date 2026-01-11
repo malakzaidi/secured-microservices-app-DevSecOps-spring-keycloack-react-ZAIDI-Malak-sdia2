@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Container, Button, Table, Badge, Alert, Spinner, Modal, Form } from 'react-bootstrap';
-
-const API_BASE_URL = 'http://localhost:8087/api';
+import api from '../api';
+import { Container, Button, Table, Badge, Alert, Spinner, Modal, Form, Row, Col } from 'react-bootstrap';
 
 function AdminPanel() {
   const [products, setProducts] = useState([]);
@@ -32,7 +30,7 @@ function AdminPanel() {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${API_BASE_URL}/products`);
+      const response = await api.get('/products');
       setProducts(response.data);
       setError(null);
     } catch (err) {
@@ -46,7 +44,7 @@ function AdminPanel() {
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${API_BASE_URL}/orders`);
+      const response = await api.get('/orders');
       setOrders(response.data);
       setError(null);
     } catch (err) {
@@ -66,7 +64,7 @@ function AdminPanel() {
         stockQuantity: parseInt(formData.stockQuantity)
       };
 
-      await axios.post(`${API_BASE_URL}/products`, productData);
+      await api.post('/products', productData);
       setShowCreateModal(false);
       resetForm();
       fetchProducts();
@@ -85,7 +83,7 @@ function AdminPanel() {
         stockQuantity: parseInt(formData.stockQuantity)
       };
 
-      await axios.put(`${API_BASE_URL}/products/${editingProduct.id}`, productData);
+      await api.put(`/products/${editingProduct.id}`, productData);
       setShowCreateModal(false);
       setEditingProduct(null);
       resetForm();
@@ -99,7 +97,7 @@ function AdminPanel() {
   const handleDeleteProduct = async (productId) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
-        await axios.delete(`${API_BASE_URL}/products/${productId}`);
+        await api.delete(`/products/${productId}`);
         fetchProducts();
       } catch (err) {
         console.error('Error deleting product:', err);
@@ -110,7 +108,7 @@ function AdminPanel() {
 
   const handleUpdateOrderStatus = async (orderId, newStatus) => {
     try {
-      await axios.put(`${API_BASE_URL}/orders/${orderId}/status?status=${newStatus}`);
+      await api.put(`/orders/${orderId}/status?status=${newStatus}`);
       fetchOrders();
     } catch (err) {
       console.error('Error updating order status:', err);
