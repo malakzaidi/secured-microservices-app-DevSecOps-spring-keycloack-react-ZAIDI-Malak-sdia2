@@ -1,15 +1,16 @@
 package org.security.commandservice.service;
 
+import org.security.commandservice.client.ProductServiceClient;
 import org.security.commandservice.dto.OrderDTO;
 import org.security.commandservice.dto.OrderItemDTO;
 import org.security.commandservice.dto.OrderRequestDTO;
+import org.security.commandservice.dto.ProductResponseDTO;
 import org.security.commandservice.model.Order;
 import org.security.commandservice.model.OrderItem;
 import org.security.commandservice.repository.OrderRepository;
 import org.security.commandservice.repository.OrderItemRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -22,12 +23,12 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
-    private final RestTemplate restTemplate;
+    private final ProductServiceClient productServiceClient;
 
-    public OrderService(OrderRepository orderRepository, OrderItemRepository orderItemRepository, RestTemplate restTemplate) {
+    public OrderService(OrderRepository orderRepository, OrderItemRepository orderItemRepository, ProductServiceClient productServiceClient) {
         this.orderRepository = orderRepository;
         this.orderItemRepository = orderItemRepository;
-        this.restTemplate = restTemplate;
+        this.productServiceClient = productServiceClient;
     }
 
     public List<OrderDTO> getAllOrders() {
@@ -115,11 +116,8 @@ public class OrderService {
 
     private ProductInfo getProductInfo(Long productId) {
         try {
-            // In a real implementation, this would call the product service via Eureka
-            // For now, we'll simulate the call
-            String url = "http://localhost:8081/api/products/" + productId;
-            // This would be replaced with actual service discovery
-            return new ProductInfo("Sample Product", BigDecimal.valueOf(100.00));
+            ProductResponseDTO product = productServiceClient.getProductById(productId);
+            return new ProductInfo(product.getName(), product.getPrice());
         } catch (Exception e) {
             return null;
         }
@@ -127,10 +125,7 @@ public class OrderService {
 
     private boolean reserveProductStock(Long productId, Integer quantity) {
         try {
-            // In a real implementation, this would call the product service
-            String url = "http://localhost:8081/api/products/" + productId + "/reserve?quantity=" + quantity;
-            // This would be replaced with actual service call
-            return true; // Simulate success
+            return productServiceClient.checkAndReserveStock(productId, quantity);
         } catch (Exception e) {
             return false;
         }
