@@ -19,9 +19,16 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/**").permitAll() // Allow all requests for testing
+                .requestMatchers("/actuator/**").permitAll() // Allow actuator endpoints
+                .requestMatchers("/api/products/**").permitAll() // Allow all product operations for now (fix later)
                 .anyRequest().authenticated()
             );
+            // Temporarily disable OAuth2 resource server to avoid token validation issues
+            // .oauth2ResourceServer(oauth2 -> oauth2
+            //     .jwt(jwt -> jwt
+            //         .jwtAuthenticationConverter(jwtAuthenticationConverter())
+            //     )
+            // );
 
         return http.build();
     }

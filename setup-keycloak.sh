@@ -23,9 +23,14 @@ fi
 
 echo "✅ Token obtenu avec succès"
 
+# Supprimer le realm s'il existe déjà
+echo "🗑️ Suppression du realm existant microservices-realm si présent..."
+curl -s -X DELETE http://localhost:8180/admin/realms/microservices-realm \
+  -H "Authorization: Bearer $TOKEN"
+
 # Créer le realm microservices-realm
 echo "🏛️ Création du realm microservices-realm..."
-curl -s -X POST http://localhost:8180/admin/realms \
+RESPONSE=$(curl -s -X POST http://localhost:8180/admin/realms \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -37,7 +42,23 @@ curl -s -X POST http://localhost:8180/admin/realms \
     "resetPasswordAllowed": true,
     "editUsernameAllowed": false,
     "bruteForceProtected": true
-  }'
+  }')
+echo "Response: $RESPONSE"
+if [ -n "$RESPONSE" ] && [ "$RESPONSE" != "{}" ]; then
+  echo "❌ Erreur lors de la création du realm: $RESPONSE"
+  exit 1
+fi
+
+# Supprimer le client s'il existe déjà
+echo "🗑️ Suppression du client existant microservices-client si présent..."
+CLIENT_ID=$(curl -s http://localhost:8180/admin/realms/microservices-realm/clients?clientId=microservices-client \
+  -H "Authorization: Bearer $TOKEN" | jq -r '.[0].id')
+
+if [ "$CLIENT_ID" != "null" ] && [ -n "$CLIENT_ID" ]; then
+  curl -s -X DELETE http://localhost:8180/admin/realms/microservices-realm/clients/$CLIENT_ID \
+    -H "Authorization: Bearer $TOKEN"
+  echo "✅ Client existant supprimé"
+fi
 
 # Créer le client microservices-client
 echo "📱 Création du client microservices-client..."
@@ -66,6 +87,7 @@ curl -s -X POST http://localhost:8180/admin/realms/microservices-realm/clients \
       "saml.authnstatement": "false",
       "display.on.consent.screen": "false",
       "saml.onetimeuse.condition": "false"
+       "pkce.code.challenge.method": "S256",
     }
   }'
 

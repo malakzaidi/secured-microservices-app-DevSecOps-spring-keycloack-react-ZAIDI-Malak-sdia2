@@ -28,16 +28,23 @@ services:
       KC_DB_URL: jdbc:postgresql://postgres:5432/postgres
       KC_DB_USERNAME: postgres
       KC_DB_PASSWORD: postgres
+      KC_HOSTNAME_STRICT: false
+      KC_HOSTNAME_STRICT_HTTPS: false
+      KC_HTTP_ENABLED: true
     ports:
       - "8180:8080"
     depends_on:
       - postgres
-    command: start-dev
+    command: start-dev --import-realm
+    volumes:
+      - ./keycloak/realm-export.json:/opt/keycloak/data/import/realm-export.json
+      - keycloak_data:/opt/keycloak/data
     networks:
       - microservices-network
 
 volumes:
   postgres_data:
+  keycloak_data:
 
 networks:
   microservices-network:

@@ -1,21 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Button, Card, Row, Col, Badge, Alert, Spinner, Modal } from 'react-bootstrap';
+import { Container, Button, Card, Row, Col, Badge, Alert, Spinner, Modal, InputGroup, Form, Toast, ToastContainer, ProgressBar } from 'react-bootstrap';
 
 const API_BASE_URL = 'http://localhost:8087/api';
 
 function OrderForm() {
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
   const [createdOrder, setCreatedOrder] = useState(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
   useEffect(() => {
     fetchProducts();
   }, []);
+
+  useEffect(() => {
+    // Filter products based on search term
+    const filtered = products.filter(product =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.description.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredProducts(filtered);
+  }, [products, searchTerm]);
+
+  const showToastMessage = (message) => {
+    setToastMessage(message);
+    setShowToast(true);
+  };
 
   const fetchProducts = async () => {
     try {
@@ -125,170 +143,518 @@ function OrderForm() {
   }
 
   return (
-    <Container>
-      <h2 className="mb-4">Create New Order</h2>
+    <Container fluid className="py-4" style={{ background: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)', minHeight: '100vh' }}>
+      <Container>
+        {/* Header Section */}
+        <div className="text-center mb-5">
+          <h1 className="display-4 fw-bold text-dark mb-3" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.1)' }}>
+            🛒 Create New Order
+          </h1>
+          <p className="lead text-muted mb-4">
+            Select products and build your perfect order
+          </p>
 
-      {error && (
-        <Alert variant="danger" dismissible onClose={() => setError(null)}>
-          {error}
-        </Alert>
-      )}
+          {/* Progress Indicator */}
+          <div className="mb-4">
+            <div className="d-flex justify-content-center align-items-center mb-2">
+              <div className={`rounded-circle d-flex align-items-center justify-content-center me-2 ${
+                selectedItems.length > 0 ? 'bg-success' : 'bg-secondary'
+              }`} style={{ width: '40px', height: '40px' }}>
+                <span className="text-white fw-bold">1</span>
+              </div>
+              <div style={{ width: '100px', height: '2px', backgroundColor: '#dee2e6' }}></div>
+              <div className={`rounded-circle d-flex align-items-center justify-content-center mx-2 ${
+                selectedItems.length > 0 ? 'bg-primary' : 'bg-secondary'
+              }`} style={{ width: '40px', height: '40px' }}>
+                <span className="text-white fw-bold">2</span>
+              </div>
+              <div style={{ width: '100px', height: '2px', backgroundColor: '#dee2e6' }}></div>
+              <div className={`rounded-circle d-flex align-items-center justify-content-center ms-2 ${
+                submitting ? 'bg-warning' : 'bg-secondary'
+              }`} style={{ width: '40px', height: '40px' }}>
+                <span className="text-white fw-bold">3</span>
+              </div>
+            </div>
+            <div className="d-flex justify-content-between" style={{ maxWidth: '400px', margin: '0 auto' }}>
+              <small className="text-muted">Select Products</small>
+              <small className="text-muted">Review Order</small>
+              <small className="text-muted">Place Order</small>
+            </div>
+          </div>
 
-      <Row>
-        {/* Products List */}
-        <Col md={8}>
-          <Card className="mb-4">
-            <Card.Header>
-              <h5 className="mb-0">Available Products</h5>
-            </Card.Header>
-            <Card.Body>
-              {products.length === 0 ? (
-                <Alert variant="info">No products available in stock.</Alert>
-              ) : (
-                <Row>
-                  {products.map((product) => (
-                    <Col key={product.id} md={6} className="mb-3">
-                      <Card className="h-100">
-                        <Card.Body>
-                          <Card.Title className="text-truncate">{product.name}</Card.Title>
-                          <Card.Text className="small">{product.description}</Card.Text>
-                          <div className="d-flex justify-content-between align-items-center">
-                            <div>
-                              <strong className="text-success">${product.price}</strong>
-                              <br />
-                              <small className="text-muted">
-                                Stock: {product.stockQuantity}
-                              </small>
-                            </div>
-                            <Button
-                              variant="primary"
-                              size="sm"
-                              onClick={() => addToOrder(product)}
-                              disabled={selectedItems.some(item => item.productId === product.id && item.quantity >= product.stockQuantity)}
+          {/* Stats Cards */}
+          <Row className="mb-4">
+            <Col md={4}>
+              <Card className="bg-white bg-opacity-75 text-dark border-0 shadow">
+                <Card.Body className="text-center py-3">
+                  <div style={{ fontSize: '2rem' }}>📦</div>
+                  <h4 className="mb-1">{filteredProducts.length}</h4>
+                  <small>Available Products</small>
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col md={4}>
+              <Card className="bg-white bg-opacity-75 text-dark border-0 shadow">
+                <Card.Body className="text-center py-3">
+                  <div style={{ fontSize: '2rem' }}>🛒</div>
+                  <h4 className="mb-1">{selectedItems.length}</h4>
+                  <small>Items in Cart</small>
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col md={4}>
+              <Card className="bg-white bg-opacity-75 text-dark border-0 shadow">
+                <Card.Body className="text-center py-3">
+                  <div style={{ fontSize: '2rem' }}>💰</div>
+                  <h4 className="mb-1">${calculateTotal().toFixed(2)}</h4>
+                  <small>Total Amount</small>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        </div>
+
+        {error && (
+          <Alert variant="danger" className="shadow-lg mb-4">
+            <Alert.Heading>❌ Oops! Something went wrong</Alert.Heading>
+            <p>{error}</p>
+          </Alert>
+        )}
+
+        <Row>
+          {/* Products List */}
+          <Col lg={8} xl={9}>
+            {/* Search Bar */}
+            <Card className="mb-4 shadow">
+              <Card.Body className="py-3">
+                <InputGroup>
+                  <InputGroup.Text className="bg-light border-0">
+                    <span style={{ fontSize: '1.2rem' }}>🔍</span>
+                  </InputGroup.Text>
+                  <Form.Control
+                    type="text"
+                    placeholder="Search products..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="border-0 bg-light"
+                    style={{ fontSize: '1.1rem', padding: '0.75rem' }}
+                  />
+                  {searchTerm && (
+                    <Button
+                      variant="outline-secondary"
+                      onClick={() => setSearchTerm('')}
+                      className="border-0"
+                    >
+                      ✕
+                    </Button>
+                  )}
+                </InputGroup>
+              </Card.Body>
+            </Card>
+
+            <Card className="shadow">
+              <Card.Header className="bg-primary text-white">
+                <h5 className="mb-0 d-flex align-items-center">
+                  <span style={{ fontSize: '1.2rem', marginRight: '0.5rem' }}>🛍️</span>
+                  Available Products ({filteredProducts.length})
+                </h5>
+              </Card.Header>
+              <Card.Body>
+                {loading ? (
+                  <div className="text-center py-5">
+                    <Spinner animation="border" variant="primary" />
+                    <p className="mt-2">Loading products...</p>
+                  </div>
+                ) : filteredProducts.length === 0 ? (
+                  <Alert variant="info" className="text-center py-4">
+                    <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📭</div>
+                    <h5>{searchTerm ? 'No products found' : 'No products available'}</h5>
+                    <p className="mb-0">
+                      {searchTerm
+                        ? `Try adjusting your search term or clear the search to see all products.`
+                        : 'There are currently no products in stock.'
+                      }
+                    </p>
+                    {searchTerm && (
+                      <Button
+                        variant="outline-primary"
+                        className="mt-3"
+                        onClick={() => setSearchTerm('')}
+                      >
+                        Clear Search
+                      </Button>
+                    )}
+                  </Alert>
+                ) : (
+                  <Row>
+                    {filteredProducts.map((product, index) => (
+                      <Col key={product.id} md={6} lg={4} className="mb-4">
+                        <Card
+                          className="h-100 shadow-lg border-0 position-relative overflow-hidden"
+                          style={{
+                            background: 'white',
+                            transition: 'all 0.3s ease',
+                            animation: `fadeInUp 0.5s ease-out ${index * 0.1}s both`
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = 'translateY(-10px)';
+                            e.currentTarget.style.boxShadow = '0 15px 35px rgba(0,0,0,0.1)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = 'translateY(0)';
+                            e.currentTarget.style.boxShadow = '0 5px 15px rgba(0,0,0,0.08)';
+                          }}
+                        >
+                          {/* Product Image Placeholder */}
+                          <div
+                            className="position-relative overflow-hidden"
+                            style={{
+                              height: '180px',
+                              background: `linear-gradient(45deg, ${
+                                product.stockQuantity > 10 ? '#28a745' :
+                                product.stockQuantity > 0 ? '#ffc107' : '#dc3545'
+                              }, ${
+                                product.stockQuantity > 10 ? '#20c997' :
+                                product.stockQuantity > 0 ? '#fd7e14' : '#6c757d'
+                              })`,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center'
+                            }}
+                          >
+                            <span style={{ fontSize: '3rem', filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.3))' }}>
+                              {product.stockQuantity > 10 ? '📦' :
+                               product.stockQuantity > 0 ? '📦' : '🚫'}
+                            </span>
+
+                            {/* Stock Badge */}
+                            <Badge
+                              className="position-absolute top-0 end-0 m-2"
+                              bg={product.stockQuantity > 10 ? 'success' : product.stockQuantity > 0 ? 'warning' : 'danger'}
                             >
-                              Add to Order
-                            </Button>
+                              {product.stockQuantity > 0 ? `${product.stockQuantity} left` : 'Out of stock'}
+                            </Badge>
                           </div>
-                        </Card.Body>
-                      </Card>
-                    </Col>
-                  ))}
-                </Row>
-              )}
-            </Card.Body>
-          </Card>
-        </Col>
 
-        {/* Order Summary */}
-        <Col md={4}>
-          <Card className="sticky-top">
-            <Card.Header>
-              <h5 className="mb-0">Order Summary</h5>
-            </Card.Header>
-            <Card.Body>
-              {selectedItems.length === 0 ? (
-                <p className="text-muted">No items in your order yet.</p>
-              ) : (
-                <>
-                  {selectedItems.map((item) => (
-                    <div key={item.productId} className="d-flex justify-content-between align-items-center mb-2">
-                      <div className="flex-grow-1">
-                        <small className="d-block text-truncate">{item.productName}</small>
-                        <small className="text-muted">${item.price} each</small>
+                          <Card.Body className="d-flex flex-column">
+                            <Card.Title className="fw-bold text-truncate mb-2" style={{ fontSize: '1.1rem' }}>
+                              {product.name}
+                            </Card.Title>
+
+                            <Card.Text className="text-muted small mb-3" style={{ flex: '1' }}>
+                              {product.description.length > 80
+                                ? `${product.description.substring(0, 80)}...`
+                                : product.description
+                              }
+                            </Card.Text>
+
+                            <div className="d-flex justify-content-between align-items-center mb-3">
+                              <div>
+                                <h4 className="text-success fw-bold mb-0">${product.price}</h4>
+                                <small className="text-muted">per unit</small>
+                              </div>
+                              <small className="text-muted">ID: {product.id}</small>
+                            </div>
+
+                            <Button
+                              variant={product.stockQuantity > 0 ? "primary" : "secondary"}
+                              className="w-100"
+                              disabled={product.stockQuantity === 0}
+                              onClick={() => {
+                                addToOrder(product);
+                                showToastMessage(`Added ${product.name} to your cart!`);
+                              }}
+                              style={{ transition: 'all 0.2s ease' }}
+                            >
+                              {product.stockQuantity > 0 ? '🛒 Add to Cart' : '🚫 Out of Stock'}
+                            </Button>
+                          </Card.Body>
+                        </Card>
+                      </Col>
+                    ))}
+                  </Row>
+                )}
+              </Card.Body>
+            </Card>
+          </Col>
+
+          {/* Order Summary */}
+          <Col lg={4} xl={3}>
+            <Card className="sticky-top shadow-lg border-0" style={{ top: '20px' }}>
+              <Card.Header className="bg-success text-white">
+                <h5 className="mb-0 d-flex align-items-center">
+                  <span style={{ fontSize: '1.2rem', marginRight: '0.5rem' }}>🛒</span>
+                  Order Summary
+                </h5>
+              </Card.Header>
+              <Card.Body>
+                {selectedItems.length === 0 ? (
+                  <div className="text-center py-4">
+                    <div style={{ fontSize: '3rem', marginBottom: '1rem', opacity: '0.5' }}>🛒</div>
+                    <p className="text-muted mb-3">Your cart is empty</p>
+                    <small className="text-muted">Add some products to get started!</small>
+                  </div>
+                ) : (
+                  <>
+                    <div className="mb-3">
+                      {selectedItems.map((item, index) => (
+                        <Card key={item.productId} className="mb-3 border-0 shadow-sm" style={{ animation: `slideInRight 0.3s ease-out ${index * 0.1}s both` }}>
+                          <Card.Body className="py-3">
+                            <div className="d-flex justify-content-between align-items-start mb-2">
+                              <div className="flex-grow-1 me-2">
+                                <h6 className="mb-1 text-truncate">{item.productName}</h6>
+                                <small className="text-muted">${item.price} each</small>
+                              </div>
+                              <Button
+                                variant="outline-danger"
+                                size="sm"
+                                onClick={() => {
+                                  removeFromOrder(item.productId);
+                                  showToastMessage(`Removed ${item.productName} from cart`);
+                                }}
+                                style={{ fontSize: '0.8rem', padding: '0.2rem 0.4rem' }}
+                              >
+                                ✕
+                              </Button>
+                            </div>
+
+                            <div className="d-flex justify-content-between align-items-center">
+                              <div className="d-flex align-items-center">
+                                <Button
+                                  variant="outline-secondary"
+                                  size="sm"
+                                  className="me-2"
+                                  onClick={() => updateQuantity(item.productId, item.quantity - 1)}
+                                  disabled={item.quantity <= 1}
+                                >
+                                  −
+                                </Button>
+                                <Badge bg="primary" className="me-2 px-3 py-2">{item.quantity}</Badge>
+                                <Button
+                                  variant="outline-secondary"
+                                  size="sm"
+                                  onClick={() => updateQuantity(item.productId, item.quantity + 1)}
+                                >
+                                  +
+                                </Button>
+                              </div>
+                              <strong className="text-success">
+                                ${(item.price * item.quantity).toFixed(2)}
+                              </strong>
+                            </div>
+                          </Card.Body>
+                        </Card>
+                      ))}
+                    </div>
+
+                    <hr className="my-4" />
+
+                    {/* Order Totals */}
+                    <div className="mb-4">
+                      <div className="d-flex justify-content-between mb-2">
+                        <span>Subtotal:</span>
+                        <span>${calculateTotal().toFixed(2)}</span>
                       </div>
-                      <div className="d-flex align-items-center">
-                        <Button
-                          variant="outline-secondary"
-                          size="sm"
-                          className="me-2"
-                          onClick={() => updateQuantity(item.productId, item.quantity - 1)}
-                        >
-                          -
-                        </Button>
-                        <Badge bg="secondary" className="me-2">{item.quantity}</Badge>
-                        <Button
-                          variant="outline-secondary"
-                          size="sm"
-                          className="me-2"
-                          onClick={() => updateQuantity(item.productId, item.quantity + 1)}
-                        >
-                          +
-                        </Button>
-                        <Button
-                          variant="outline-danger"
-                          size="sm"
-                          onClick={() => removeFromOrder(item.productId)}
-                        >
-                          ×
-                        </Button>
+                      <div className="d-flex justify-content-between mb-2">
+                        <span>Shipping:</span>
+                        <span className="text-success">FREE</span>
+                      </div>
+                      <div className="d-flex justify-content-between mb-2">
+                        <span>Tax:</span>
+                        <span>${(calculateTotal() * 0.08).toFixed(2)}</span>
+                      </div>
+                      <hr />
+                      <div className="d-flex justify-content-between">
+                        <strong className="fs-5">Total:</strong>
+                        <strong className="text-success fs-5">
+                          ${(calculateTotal() * 1.08).toFixed(2)}
+                        </strong>
                       </div>
                     </div>
-                  ))}
 
-                  <hr />
-                  <div className="d-flex justify-content-between align-items-center">
-                    <strong>Total:</strong>
-                    <strong className="text-success">${calculateTotal().toFixed(2)}</strong>
-                  </div>
+                    <Button
+                      variant="success"
+                      size="lg"
+                      className="w-100 fw-bold"
+                      onClick={handleSubmit}
+                      disabled={submitting || selectedItems.length === 0}
+                      style={{ fontSize: '1.1rem', padding: '0.75rem' }}
+                    >
+                      {submitting ? (
+                        <>
+                          <Spinner animation="border" size="sm" className="me-2" />
+                          Creating Order...
+                        </>
+                      ) : (
+                        <>
+                          🛍️ Place Order (${(calculateTotal() * 1.08).toFixed(2)})
+                        </>
+                      )}
+                    </Button>
 
-                  <Button
-                    variant="success"
-                    className="w-100 mt-3"
-                    onClick={handleSubmit}
-                    disabled={submitting || selectedItems.length === 0}
-                  >
-                    {submitting ? (
-                      <>
-                        <Spinner animation="border" size="sm" className="me-2" />
-                        Creating Order...
-                      </>
-                    ) : (
-                      'Create Order'
+                    {selectedItems.length > 0 && (
+                      <div className="text-center mt-3">
+                        <small className="text-muted">
+                          {selectedItems.reduce((sum, item) => sum + item.quantity, 0)} items • Secure checkout
+                        </small>
+                      </div>
                     )}
-                  </Button>
-                </>
-              )}
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
+                  </>
+                )}
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
 
-      {/* Success Modal */}
-      <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title className="text-success">Order Created Successfully! 🎉</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {createdOrder && (
-            <div>
-              <Alert variant="success">
-                <h5>Order #{createdOrder.id}</h5>
-                <p className="mb-1"><strong>Total Amount:</strong> ${createdOrder.totalAmount}</p>
-                <p className="mb-1"><strong>Status:</strong> {createdOrder.status}</p>
-                <p className="mb-0"><strong>Items:</strong> {createdOrder.items?.length || 0}</p>
-              </Alert>
+        {/* Success Modal */}
+        <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)} size="lg" centered>
+          <Modal.Header closeButton className="bg-success text-white">
+            <Modal.Title className="d-flex align-items-center">
+              <span style={{ fontSize: '1.5rem', marginRight: '0.5rem' }}>🎉</span>
+              Order Created Successfully!
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body className="p-4">
+            {createdOrder && (
+              <div>
+                {/* Order Summary Cards */}
+                <Row className="mb-4">
+                  <Col md={6}>
+                    <Card className="text-center border-success shadow">
+                      <Card.Body>
+                        <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>📋</div>
+                        <h6 className="text-muted mb-1">Order Number</h6>
+                        <h4 className="text-success mb-0">#{createdOrder.id}</h4>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                  <Col md={6}>
+                    <Card className="text-center border-success shadow">
+                      <Card.Body>
+                        <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>💰</div>
+                        <h6 className="text-muted mb-1">Total Amount</h6>
+                        <h4 className="text-success mb-0">${createdOrder.totalAmount}</h4>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                </Row>
 
-              <h6>Order Items:</h6>
-              <ul>
-                {createdOrder.items?.map((item, index) => (
-                  <li key={index}>
-                    {item.productName} - Quantity: {item.quantity} - ${item.price} each
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowSuccessModal(false)}>
-            Close
-          </Button>
-          <Button variant="primary" href="#orders">
-            View My Orders
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </Container>
+                {/* Order Details */}
+                <Card className="mb-4 shadow">
+                  <Card.Header className="bg-light">
+                    <h6 className="mb-0 d-flex align-items-center">
+                      <span style={{ fontSize: '1.2rem', marginRight: '0.5rem' }}>📦</span>
+                      Order Details
+                    </h6>
+                  </Card.Header>
+                  <Card.Body>
+                    <div className="d-flex justify-content-between mb-3">
+                      <span><strong>Status:</strong></span>
+                      <Badge bg="primary" className="fs-6 px-3 py-2">{createdOrder.status}</Badge>
+                    </div>
+                    <div className="d-flex justify-content-between mb-3">
+                      <span><strong>Items:</strong></span>
+                      <span className="fw-bold">{createdOrder.items?.length || 0} products</span>
+                    </div>
+                    <div className="d-flex justify-content-between">
+                      <span><strong>Order Date:</strong></span>
+                      <span>{new Date().toLocaleDateString()}</span>
+                    </div>
+                  </Card.Body>
+                </Card>
+
+                {/* Order Items */}
+                <h6 className="mb-3 d-flex align-items-center">
+                  <span style={{ fontSize: '1.2rem', marginRight: '0.5rem' }}>🛒</span>
+                  Order Items
+                </h6>
+                <div className="mb-4">
+                  {createdOrder.items?.map((item, index) => (
+                    <Card key={index} className="mb-3 border-0 shadow-sm">
+                      <Card.Body className="py-3">
+                        <Row className="align-items-center">
+                          <Col md={6}>
+                            <h6 className="mb-1">{item.productName}</h6>
+                            <small className="text-muted">${item.price} each</small>
+                          </Col>
+                          <Col md={3} className="text-center">
+                            <Badge bg="secondary" className="fs-6 px-3 py-2">
+                              Qty: {item.quantity}
+                            </Badge>
+                          </Col>
+                          <Col md={3} className="text-end">
+                            <span className="fw-bold text-success fs-5">
+                              ${(item.price * item.quantity).toFixed(2)}
+                            </span>
+                          </Col>
+                        </Row>
+                      </Card.Body>
+                    </Card>
+                  ))}
+                </div>
+
+                {/* Success Message */}
+                <Alert variant="success" className="text-center py-4">
+                  <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>✅</div>
+                  <h5>Your order has been placed successfully!</h5>
+                  <p className="mb-0">You will receive a confirmation email shortly.</p>
+                </Alert>
+              </div>
+            )}
+          </Modal.Body>
+          <Modal.Footer className="bg-light">
+            <Button variant="secondary" onClick={() => setShowSuccessModal(false)}>
+              Close
+            </Button>
+            <Button variant="success" href="#orders" onClick={() => setShowSuccessModal(false)}>
+              👁️ View My Orders
+            </Button>
+            <Button variant="primary" onClick={() => {
+              setShowSuccessModal(false);
+              setSelectedItems([]);
+              showToastMessage('Ready to create another order!');
+            }}>
+              🛒 Create Another Order
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        {/* Toast Notifications */}
+        <ToastContainer position="top-end" className="p-3">
+          <Toast show={showToast} onClose={() => setShowToast(false)} delay={3000} autohide>
+            <Toast.Header>
+              <span style={{ fontSize: '1.2rem' }}>🛒</span>
+              <strong className="me-auto ms-2">Order Update</strong>
+            </Toast.Header>
+            <Toast.Body>{toastMessage}</Toast.Body>
+          </Toast>
+        </ToastContainer>
+
+        <style jsx>{`
+          @keyframes fadeInUp {
+            from {
+              opacity: 0;
+              transform: translateY(30px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+
+          @keyframes slideInRight {
+            from {
+              opacity: 0;
+              transform: translateX(30px);
+            }
+            to {
+              opacity: 1;
+              transform: translateX(0);
+            }
+          }
+        `}</style>
+      </Container>
   );
 }
 
