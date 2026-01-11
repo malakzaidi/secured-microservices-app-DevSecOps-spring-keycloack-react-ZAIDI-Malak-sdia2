@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Keycloak from 'keycloak-js';
-import { Container, Navbar, Nav, Button, Spinner, Alert } from 'react-bootstrap';
+import { Container, Navbar, Nav, Button, Spinner, Alert, Row, Col, Card } from 'react-bootstrap';
 import ProductList from './components/ProductList';
 import OrderList from './components/OrderList';
 import OrderForm from './components/OrderForm';
 import AdminPanel from './components/AdminPanel';
+import HomePage from './components/HomePage';
 
 // Configuration Keycloak
 const keycloak = new Keycloak({
@@ -20,10 +21,11 @@ function App() {
   const [userRoles, setUserRoles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showLogin, setShowLogin] = useState(false);
 
   useEffect(() => {
     keycloak.init({
-      onLoad: 'login-required',
+      onLoad: 'check-sso',
       checkLoginIframe: false
     }).then(authenticated => {
       setAuthenticated(authenticated);
@@ -46,6 +48,13 @@ function App() {
       setLoading(false);
     });
   }, []);
+
+  const handleLogin = () => {
+    setShowLogin(true);
+    keycloak.login({
+      redirectUri: window.location.origin
+    });
+  };
 
   const handleLogout = () => {
     keycloak.logout();
@@ -80,16 +89,7 @@ function App() {
   }
 
   if (!authenticated) {
-    return (
-      <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
-        <div className="text-center">
-          <Spinner animation="border" role="status">
-            <span className="visually-hidden">Authenticating...</span>
-          </Spinner>
-          <p className="mt-3">Redirecting to login...</p>
-        </div>
-      </Container>
-    );
+    return <HomePage onLogin={handleLogin} />;
   }
 
   return (
