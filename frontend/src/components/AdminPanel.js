@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Row, Col, Card, Button, Table, Badge, Alert, Spinner, Modal, Form } from 'react-bootstrap';
+import { Container, Button, Table, Badge, Alert, Spinner, Modal, Form } from 'react-bootstrap';
 
 const API_BASE_URL = 'http://localhost:8087/api';
 

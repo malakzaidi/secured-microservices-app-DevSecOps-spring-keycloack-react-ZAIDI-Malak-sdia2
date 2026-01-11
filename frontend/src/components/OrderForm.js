@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Form, Button, Card, Row, Col, Badge, Alert, Spinner, Modal } from 'react-bootstrap';
+import { Container, Button, Card, Row, Col, Badge, Alert, Spinner, Modal } from 'react-bootstrap';
 
 const API_BASE_URL = 'http://localhost:8087/api';
 
@@ -10,7 +10,6 @@ function OrderForm() {
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(false);
   const [createdOrder, setCreatedOrder] = useState(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
@@ -103,7 +102,6 @@ function OrderForm() {
 
       const response = await axios.post(`${API_BASE_URL}/orders`, orderRequest);
       setCreatedOrder(response.data);
-      setSuccess(true);
       setShowSuccessModal(true);
       setSelectedItems([]); // Clear the order
 
