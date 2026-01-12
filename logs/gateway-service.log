@@ -34,58 +34,56 @@
 
  :: Spring Boot ::                (v3.5.9)
 
-2026-01-11T19:15:42.883+01:00  INFO 1370058 --- [gateway-service] [           main] o.s.g.GatewayServiceApplication          : Starting GatewayServiceApplication using Java 21.0.9 with PID 1370058 (/home/malak/IdeaProjects/security-of-ds-project/gateway-service/target/classes started by malak in /home/malak/IdeaProjects/security-of-ds-project/gateway-service)
-2026-01-11T19:15:42.892+01:00  INFO 1370058 --- [gateway-service] [           main] o.s.g.GatewayServiceApplication          : No active profile set, falling back to 1 default profile: "default"
-2026-01-11T19:15:45.059+01:00  INFO 1370058 --- [gateway-service] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=8c8bb0ce-1e09-35dc-b40e-46fd53c6bdd7
-2026-01-11T19:15:46.180+01:00 DEBUG 1370058 --- [gateway-service] [           main] o.s.c.gateway.config.GatewayProperties   : Routes supplied from Gateway Properties: [RouteDefinition{id='product-service', predicates=[PredicateDefinition{name='Path', args={_genkey_0=/api/products/**}}], filters=[], uri=lb://product-service, order=0, metadata={}, enabled=true}, RouteDefinition{id='command-service', predicates=[PredicateDefinition{name='Path', args={_genkey_0=/api/orders/**}}], filters=[], uri=lb://command-service, order=0, metadata={}, enabled=true}]
-2026-01-11T19:15:46.507+01:00  INFO 1370058 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [After]
-2026-01-11T19:15:46.507+01:00  INFO 1370058 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Before]
-2026-01-11T19:15:46.508+01:00  INFO 1370058 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Between]
-2026-01-11T19:15:46.508+01:00  INFO 1370058 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Cookie]
-2026-01-11T19:15:46.508+01:00  INFO 1370058 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Header]
-2026-01-11T19:15:46.508+01:00  INFO 1370058 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Host]
-2026-01-11T19:15:46.508+01:00  INFO 1370058 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Method]
-2026-01-11T19:15:46.508+01:00  INFO 1370058 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Path]
-2026-01-11T19:15:46.508+01:00  INFO 1370058 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Query]
-2026-01-11T19:15:46.508+01:00  INFO 1370058 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [ReadBody]
-2026-01-11T19:15:46.508+01:00  INFO 1370058 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [RemoteAddr]
-2026-01-11T19:15:46.508+01:00  INFO 1370058 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [XForwardedRemoteAddr]
-2026-01-11T19:15:46.508+01:00  INFO 1370058 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Weight]
-2026-01-11T19:15:46.508+01:00  INFO 1370058 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [CloudFoundryRouteService]
-2026-01-11T19:15:46.875+01:00  INFO 1370058 --- [gateway-service] [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
-2026-01-11T19:15:46.922+01:00  WARN 1370058 --- [gateway-service] [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
-2026-01-11T19:15:46.961+01:00  INFO 1370058 --- [gateway-service] [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
-2026-01-11T19:15:46.991+01:00  INFO 1370058 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
-2026-01-11T19:15:46.996+01:00  INFO 1370058 --- [gateway-service] [           main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-01-11T19:15:47.007+01:00  INFO 1370058 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
-2026-01-11T19:15:47.007+01:00  INFO 1370058 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
-2026-01-11T19:15:47.007+01:00  INFO 1370058 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
-2026-01-11T19:15:47.007+01:00  INFO 1370058 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : Application is null : false
-2026-01-11T19:15:47.007+01:00  INFO 1370058 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
-2026-01-11T19:15:47.007+01:00  INFO 1370058 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
-2026-01-11T19:15:47.007+01:00  INFO 1370058 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
-2026-01-11T19:15:47.639+01:00  INFO 1370058 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : The response status is 200
-2026-01-11T19:15:47.641+01:00  INFO 1370058 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
-2026-01-11T19:15:47.644+01:00  INFO 1370058 --- [gateway-service] [           main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
-2026-01-11T19:15:47.647+01:00  INFO 1370058 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1768155347645 with initial instances count: 3
-2026-01-11T19:15:47.652+01:00  INFO 1370058 --- [gateway-service] [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application GATEWAY-SERVICE with eureka with status UP
-2026-01-11T19:15:47.653+01:00  INFO 1370058 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1768155347653, current=UP, previous=STARTING]
-2026-01-11T19:15:47.656+01:00  INFO 1370058 --- [gateway-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_GATEWAY-SERVICE/192.168.8.140:gateway-service:8087: registering service...
-2026-01-11T19:15:47.683+01:00 DEBUG 1370058 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition product-service applying {_genkey_0=/api/products/**} to Path
-2026-01-11T19:15:47.720+01:00 DEBUG 1370058 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: product-service
-2026-01-11T19:15:47.720+01:00 DEBUG 1370058 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition command-service applying {_genkey_0=/api/orders/**} to Path
-2026-01-11T19:15:47.722+01:00 DEBUG 1370058 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: command-service
-2026-01-11T19:15:47.745+01:00  INFO 1370058 --- [gateway-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_GATEWAY-SERVICE/192.168.8.140:gateway-service:8087 - registration status: 204
-2026-01-11T19:15:49.882+01:00  INFO 1370058 --- [gateway-service] [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Unregistering application GATEWAY-SERVICE with eureka with status DOWN
-2026-01-11T19:15:49.882+01:00  INFO 1370058 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1768155349882, current=DOWN, previous=UP]
-2026-01-11T19:15:49.883+01:00  INFO 1370058 --- [gateway-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_GATEWAY-SERVICE/192.168.8.140:gateway-service:8087: registering service...
-2026-01-11T19:15:49.883+01:00  WARN 1370058 --- [gateway-service] [           main] onfigReactiveWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
-2026-01-11T19:15:49.888+01:00  INFO 1370058 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : Shutting down DiscoveryClient ...
-2026-01-11T19:15:49.891+01:00  INFO 1370058 --- [gateway-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_GATEWAY-SERVICE/192.168.8.140:gateway-service:8087 - registration status: 204
-2026-01-11T19:15:49.891+01:00  INFO 1370058 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : Unregistering ...
-2026-01-11T19:15:49.900+01:00  INFO 1370058 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_GATEWAY-SERVICE/192.168.8.140:gateway-service:8087 - deregister  status: 200
-2026-01-11T19:15:49.900+01:00  INFO 1370058 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : Completed shut down of DiscoveryClient
-2026-01-11T19:15:49.903+01:00  WARN 1370058 --- [gateway-service] [           main] ServerWebfluxPropertiesMigrationListener : 
+2026-01-12T01:09:42.876+01:00  INFO 125532 --- [gateway-service] [           main] o.s.g.GatewayServiceApplication          : Starting GatewayServiceApplication using Java 21.0.9 with PID 125532 (/home/malak/IdeaProjects/security-of-ds-project/gateway-service/target/classes started by malak in /home/malak/IdeaProjects/security-of-ds-project/gateway-service)
+2026-01-12T01:09:42.878+01:00  INFO 125532 --- [gateway-service] [           main] o.s.g.GatewayServiceApplication          : No active profile set, falling back to 1 default profile: "default"
+2026-01-12T01:09:43.649+01:00  INFO 125532 --- [gateway-service] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=8c8bb0ce-1e09-35dc-b40e-46fd53c6bdd7
+2026-01-12T01:09:44.329+01:00 DEBUG 125532 --- [gateway-service] [           main] o.s.c.gateway.config.GatewayProperties   : Routes supplied from Gateway Properties: [RouteDefinition{id='product-service', predicates=[PredicateDefinition{name='Path', args={_genkey_0=/api/products/**}}], filters=[], uri=lb://product-service, order=0, metadata={}, enabled=true}, RouteDefinition{id='command-service', predicates=[PredicateDefinition{name='Path', args={_genkey_0=/api/orders/**}}], filters=[], uri=lb://command-service, order=0, metadata={}, enabled=true}]
+2026-01-12T01:09:44.487+01:00  INFO 125532 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [After]
+2026-01-12T01:09:44.488+01:00  INFO 125532 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Before]
+2026-01-12T01:09:44.488+01:00  INFO 125532 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Between]
+2026-01-12T01:09:44.488+01:00  INFO 125532 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Cookie]
+2026-01-12T01:09:44.488+01:00  INFO 125532 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Header]
+2026-01-12T01:09:44.488+01:00  INFO 125532 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Host]
+2026-01-12T01:09:44.488+01:00  INFO 125532 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Method]
+2026-01-12T01:09:44.488+01:00  INFO 125532 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Path]
+2026-01-12T01:09:44.488+01:00  INFO 125532 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Query]
+2026-01-12T01:09:44.488+01:00  INFO 125532 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [ReadBody]
+2026-01-12T01:09:44.488+01:00  INFO 125532 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [RemoteAddr]
+2026-01-12T01:09:44.488+01:00  INFO 125532 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [XForwardedRemoteAddr]
+2026-01-12T01:09:44.488+01:00  INFO 125532 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Weight]
+2026-01-12T01:09:44.488+01:00  INFO 125532 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [CloudFoundryRouteService]
+2026-01-12T01:09:44.706+01:00  INFO 125532 --- [gateway-service] [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
+2026-01-12T01:09:44.737+01:00  WARN 125532 --- [gateway-service] [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-01-12T01:09:44.762+01:00  INFO 125532 --- [gateway-service] [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2026-01-12T01:09:44.780+01:00  INFO 125532 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2026-01-12T01:09:44.784+01:00  INFO 125532 --- [gateway-service] [           main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-01-12T01:09:44.791+01:00  INFO 125532 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2026-01-12T01:09:44.791+01:00  INFO 125532 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2026-01-12T01:09:44.792+01:00  INFO 125532 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2026-01-12T01:09:44.792+01:00  INFO 125532 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2026-01-12T01:09:44.792+01:00  INFO 125532 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2026-01-12T01:09:44.792+01:00  INFO 125532 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2026-01-12T01:09:44.792+01:00  INFO 125532 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2026-01-12T01:09:45.082+01:00  INFO 125532 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2026-01-12T01:09:45.083+01:00  INFO 125532 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2026-01-12T01:09:45.085+01:00  INFO 125532 --- [gateway-service] [           main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2026-01-12T01:09:45.087+01:00  INFO 125532 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1768176585085 with initial instances count: 0
+2026-01-12T01:09:45.090+01:00  INFO 125532 --- [gateway-service] [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application GATEWAY-SERVICE with eureka with status UP
+2026-01-12T01:09:45.090+01:00  INFO 125532 --- [gateway-service] [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1768176585090, current=UP, previous=STARTING]
+2026-01-12T01:09:45.092+01:00  INFO 125532 --- [gateway-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_GATEWAY-SERVICE/192.168.8.140:gateway-service:8087: registering service...
+2026-01-12T01:09:45.111+01:00 DEBUG 125532 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition product-service applying {_genkey_0=/api/products/**} to Path
+2026-01-12T01:09:45.135+01:00  INFO 125532 --- [gateway-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_GATEWAY-SERVICE/192.168.8.140:gateway-service:8087 - registration status: 204
+2026-01-12T01:09:45.137+01:00 DEBUG 125532 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: product-service
+2026-01-12T01:09:45.137+01:00 DEBUG 125532 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition command-service applying {_genkey_0=/api/orders/**} to Path
+2026-01-12T01:09:45.138+01:00 DEBUG 125532 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: command-service
+2026-01-12T01:09:45.273+01:00  INFO 125532 --- [gateway-service] [           main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port 8087 (http)
+2026-01-12T01:09:45.275+01:00  INFO 125532 --- [gateway-service] [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8087
+2026-01-12T01:09:45.284+01:00 DEBUG 125532 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition product-service applying {_genkey_0=/api/products/**} to Path
+2026-01-12T01:09:45.285+01:00 DEBUG 125532 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: product-service
+2026-01-12T01:09:45.285+01:00 DEBUG 125532 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition command-service applying {_genkey_0=/api/orders/**} to Path
+2026-01-12T01:09:45.286+01:00 DEBUG 125532 --- [gateway-service] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: command-service
+2026-01-12T01:09:45.292+01:00  INFO 125532 --- [gateway-service] [           main] o.s.g.GatewayServiceApplication          : Started GatewayServiceApplication in 2.78 seconds (process running for 3.223)
+2026-01-12T01:09:45.295+01:00  WARN 125532 --- [gateway-service] [           main] ServerWebfluxPropertiesMigrationListener : 
 The use of configuration keys that have been renamed was found in the environment:
 
 Property source 'Config resource 'class path resource [application.properties]' via location 'optional:classpath:/'':
@@ -111,33 +109,74 @@ Property source 'Config resource 'class path resource [application.properties]' 
 
 Each configuration key has been temporarily mapped to its replacement for your convenience. To silence this warning, please update your configuration to use the new keys.
 
-2026-01-11T19:15:49.912+01:00  INFO 1370058 --- [gateway-service] [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
-
-Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2026-01-11T19:15:49.927+01:00 ERROR 1370058 --- [gateway-service] [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-Web server failed to start. Port 8087 was already in use.
-
-Action:
-
-Identify and stop the process that's listening on port 8087 or configure this application to listen on another port.
-
-[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
-[[1;34mINFO[m] [1;31mBUILD FAILURE[m
-[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
-[[1;34mINFO[m] Total time:  19.411 s
-[[1;34mINFO[m] Finished at: 2026-01-11T19:15:50+01:00
-[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
-[[1;31mERROR[m] Failed to execute goal [32morg.springframework.boot:spring-boot-maven-plugin:3.5.9:run[m [1m(default-cli)[m on project [36mgateway-service[m: [1;31mProcess terminated with exit code: 1[m -> [1m[Help 1][m
-[[1;31mERROR[m] 
-[[1;31mERROR[m] To see the full stack trace of the errors, re-run Maven with the [1m-e[m switch.
-[[1;31mERROR[m] Re-run Maven using the [1m-X[m switch to enable full debug logging.
-[[1;31mERROR[m] 
-[[1;31mERROR[m] For more information about the errors and possible solutions, please read the following articles:
-[[1;31mERROR[m] [1m[Help 1][m http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+2026-01-12T01:10:15.084+01:00  INFO 125532 --- [gateway-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2026-01-12T01:10:15.084+01:00  INFO 125532 --- [gateway-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2026-01-12T01:10:15.084+01:00  INFO 125532 --- [gateway-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2026-01-12T01:10:15.084+01:00  INFO 125532 --- [gateway-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2026-01-12T01:10:15.084+01:00  INFO 125532 --- [gateway-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2026-01-12T01:10:15.085+01:00  INFO 125532 --- [gateway-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Application version is -1: false
+2026-01-12T01:10:15.085+01:00  INFO 125532 --- [gateway-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2026-01-12T01:10:15.133+01:00  INFO 125532 --- [gateway-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2026-01-12T01:10:15.138+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition product-service applying {_genkey_0=/api/products/**} to Path
+2026-01-12T01:10:15.142+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: product-service
+2026-01-12T01:10:15.142+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition command-service applying {_genkey_0=/api/orders/**} to Path
+2026-01-12T01:10:15.144+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: command-service
+2026-01-12T01:10:45.159+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition product-service applying {_genkey_0=/api/products/**} to Path
+2026-01-12T01:10:45.162+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: product-service
+2026-01-12T01:10:45.162+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition command-service applying {_genkey_0=/api/orders/**} to Path
+2026-01-12T01:10:45.164+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: command-service
+2026-01-12T01:11:15.175+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition product-service applying {_genkey_0=/api/products/**} to Path
+2026-01-12T01:11:15.177+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: product-service
+2026-01-12T01:11:15.178+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition command-service applying {_genkey_0=/api/orders/**} to Path
+2026-01-12T01:11:15.179+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: command-service
+2026-01-12T01:11:45.190+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition product-service applying {_genkey_0=/api/products/**} to Path
+2026-01-12T01:11:45.192+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: product-service
+2026-01-12T01:11:45.193+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition command-service applying {_genkey_0=/api/orders/**} to Path
+2026-01-12T01:11:45.194+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: command-service
+2026-01-12T01:12:15.207+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition product-service applying {_genkey_0=/api/products/**} to Path
+2026-01-12T01:12:15.209+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: product-service
+2026-01-12T01:12:15.210+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition command-service applying {_genkey_0=/api/orders/**} to Path
+2026-01-12T01:12:15.212+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: command-service
+2026-01-12T01:12:45.224+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition product-service applying {_genkey_0=/api/products/**} to Path
+2026-01-12T01:12:45.227+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: product-service
+2026-01-12T01:12:45.227+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition command-service applying {_genkey_0=/api/orders/**} to Path
+2026-01-12T01:12:45.229+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: command-service
+2026-01-12T01:13:15.244+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition product-service applying {_genkey_0=/api/products/**} to Path
+2026-01-12T01:13:15.247+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: product-service
+2026-01-12T01:13:15.247+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition command-service applying {_genkey_0=/api/orders/**} to Path
+2026-01-12T01:13:15.249+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: command-service
+2026-01-12T01:13:45.260+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition product-service applying {_genkey_0=/api/products/**} to Path
+2026-01-12T01:13:45.262+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: product-service
+2026-01-12T01:13:45.263+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition command-service applying {_genkey_0=/api/orders/**} to Path
+2026-01-12T01:13:45.264+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: command-service
+2026-01-12T01:14:15.275+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition product-service applying {_genkey_0=/api/products/**} to Path
+2026-01-12T01:14:15.277+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: product-service
+2026-01-12T01:14:15.278+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition command-service applying {_genkey_0=/api/orders/**} to Path
+2026-01-12T01:14:15.279+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: command-service
+2026-01-12T01:14:44.794+01:00  INFO 125532 --- [gateway-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-01-12T01:14:45.290+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition product-service applying {_genkey_0=/api/products/**} to Path
+2026-01-12T01:14:45.293+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: product-service
+2026-01-12T01:14:45.293+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition command-service applying {_genkey_0=/api/orders/**} to Path
+2026-01-12T01:14:45.295+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: command-service
+2026-01-12T01:15:15.306+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition product-service applying {_genkey_0=/api/products/**} to Path
+2026-01-12T01:15:15.309+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: product-service
+2026-01-12T01:15:15.309+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition command-service applying {_genkey_0=/api/orders/**} to Path
+2026-01-12T01:15:15.311+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: command-service
+2026-01-12T01:15:45.322+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition product-service applying {_genkey_0=/api/products/**} to Path
+2026-01-12T01:15:45.324+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: product-service
+2026-01-12T01:15:45.325+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition command-service applying {_genkey_0=/api/orders/**} to Path
+2026-01-12T01:15:45.327+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: command-service
+2026-01-12T01:16:15.336+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition product-service applying {_genkey_0=/api/products/**} to Path
+2026-01-12T01:16:15.338+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: product-service
+2026-01-12T01:16:15.338+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition command-service applying {_genkey_0=/api/orders/**} to Path
+2026-01-12T01:16:15.339+01:00 DEBUG 125532 --- [gateway-service] [reshExecutor-%d] o.s.c.g.r.RouteDefinitionRouteLocator    : RouteDefinition matched: command-service
+2026-01-12T01:16:34.571+01:00  INFO 125532 --- [gateway-service] [ionShutdownHook] o.s.c.n.e.s.EurekaServiceRegistry        : Unregistering application GATEWAY-SERVICE with eureka with status DOWN
+2026-01-12T01:16:34.571+01:00  INFO 125532 --- [gateway-service] [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1768176994571, current=DOWN, previous=UP]
+2026-01-12T01:16:34.571+01:00  INFO 125532 --- [gateway-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_GATEWAY-SERVICE/192.168.8.140:gateway-service:8087: registering service...
+2026-01-12T01:16:34.573+01:00  INFO 125532 --- [gateway-service] [ionShutdownHook] o.s.b.w.embedded.netty.GracefulShutdown  : Commencing graceful shutdown. Waiting for active requests to complete
+2026-01-12T01:16:34.575+01:00  INFO 125532 --- [gateway-service] [ netty-shutdown] o.s.b.w.embedded.netty.GracefulShutdown  : Graceful shutdown complete
+2026-01-12T01:16:34.578+01:00  INFO 125532 --- [gateway-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_GATEWAY-SERVICE/192.168.8.140:gateway-service:8087 - registration status: 204
+2026-01-12T01:16:36.595+01:00  INFO 125532 --- [gateway-service] [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Shutting down DiscoveryClient ...
+2026-01-12T01:16:39.596+01:00  INFO 125532 --- [gateway-service] [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Unregistering ...
+2026-01-12T01:16:39.606+01:00  INFO 125532 --- [gateway-service] [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_GATEWAY-SERVICE/192.168.8.140:gateway-service:8087 - deregister  status: 200
+2026-01-12T01:16:39.607+01:00  INFO 125532 --- [gateway-service] [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Completed shut down of DiscoveryClient

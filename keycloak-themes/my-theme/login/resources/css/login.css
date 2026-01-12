@@ -1,0 +1,311 @@
+/* Modern Keycloak Login Theme - Matching Homepage Design */
+
+/* Import Google Font (Lora) */
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap');
+
+/* Global Styles */
+* {
+    box-sizing: border-box;
+}
+
+/* Modern Clean White Background */
+body {
+    font-family: 'Lora', serif !important;
+    margin: 0;
+    min-height: 100vh;
+    background: #f8f9fa !important;
+    background-attachment: fixed;
+    color: #2c3e50;
+    overflow-x: hidden;
+}
+
+/* Modern Login Card - Refined Style */
+.login-pf-page .card-pf {
+    background: #ffffff !important;
+    border: 1px solid #e9ecef !important;
+    border-radius: 20px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+    padding: 3rem 2.5rem !important;
+    transition: all 0.3s ease !important;
+    margin: 2rem auto !important;
+    max-width: 500px !important;
+    min-height: 450px !important;
+}
+
+.login-pf-page .card-pf:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Header Styling */
+#kc-header-wrapper {
+    text-align: center !important;
+    margin-bottom: 2.5rem !important;
+}
+
+#kc-header-wrapper #kc-header::after {
+    content: "Microservices App";
+    font-family: 'Lora', serif !important;
+    font-size: 3.2rem !important;
+    font-weight: 700 !important;
+    color: #2c3e50 !important;
+    margin-bottom: 0.5rem !important;
+    text-shadow: none !important;
+    letter-spacing: -0.5px !important;
+    display: block;
+    text-align: center;
+}
+
+#kc-header-wrapper #kc-header {
+    display: none !important;
+}
+
+/* Elegant Subtitle */
+#kc-header-wrapper .subtitle::after {
+    content: "Secure Authentication Portal";
+    font-family: 'Lora', serif !important;
+    font-size: 1.1rem !important;
+    color: #6c757d !important;
+    font-weight: 400 !important;
+    opacity: 0.9 !important;
+    display: block;
+    text-align: center;
+    margin-top: 0.5rem !important;
+}
+
+#kc-header-wrapper .subtitle {
+    font-size: 1.1rem !important;
+    opacity: 0.9 !important;
+    font-weight: 400 !important;
+}
+
+/* Form Fields */
+#kc-form {
+    margin-top: 2rem !important;
+}
+
+#kc-form .form-group {
+    margin-bottom: 1.5rem !important;
+}
+
+#kc-form input[type="text"],
+#kc-form input[type="password"],
+#kc-form input[type="email"] {
+    width: 100% !important;
+    padding: 1rem 1.5rem !important;
+    border: 2px solid #e9ecef !important;
+    border-radius: 15px !important;
+    background: #ffffff !important;
+    color: #2c3e50 !important;
+    font-family: 'Lora', serif !important;
+    font-size: 1rem !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+}
+
+#kc-form input[type="text"]:focus,
+#kc-form input[type="password"]:focus,
+#kc-form input[type="email"]:focus {
+    border-color: #667eea !important;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15) !important;
+    background: #ffffff !important;
+    outline: none !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Input Labels */
+#kc-form label {
+    color: #2c3e50 !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    margin-bottom: 0.5rem !important;
+    display: block !important;
+    font-family: 'Lora', serif !important;
+}
+
+/* Modern Buttons - Matching Homepage Style */
+#kc-form .btn-primary,
+#kc-login .btn-primary,
+#kc-register .btn-primary {
+    width: 100% !important;
+    padding: 15px 40px !important;
+    background: #ffffff !important;
+    color: #667eea !important;
+    border: none !important;
+    border-radius: 30px !important;
+    font-family: 'Lora', serif !important;
+    font-weight: 600 !important;
+    font-size: 1.1rem !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+}
+
+#kc-form .btn-primary:hover,
+#kc-login .btn-primary:hover,
+#kc-register .btn-primary:hover {
+    background: #667eea !important;
+    color: #ffffff !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3) !important;
+}
+
+/* Secondary Links - Refined */
+#kc-form-options,
+#kc-form-login-toggle,
+#kc-form-registration-toggle {
+    text-align: center !important;
+    margin-top: 2rem !important;
+}
+
+#kc-form-options a,
+#kc-form-login-toggle a,
+#kc-form-registration-toggle a {
+    color: #667eea !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+    font-size: 0.95rem !important;
+    transition: all 0.3s ease !important;
+    font-family: 'Lora', serif !important;
+    border-radius: 20px !important;
+    padding: 8px 16px !important;
+    border: 1px solid #667eea !important;
+    background: rgba(102, 126, 234, 0.05) !important;
+}
+
+#kc-form-options a:hover,
+#kc-form-login-toggle a:hover,
+#kc-form-registration-toggle a:hover {
+    color: #ffffff !important;
+    background: #667eea !important;
+    text-decoration: none !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3) !important;
+}
+
+/* Error Messages */
+#kc-feedback {
+    background: rgba(231, 76, 60, 0.9) !important;
+    border: none !important;
+    border-radius: 15px !important;
+    padding: 1rem 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+#kc-feedback .kc-feedback-text {
+    color: #ffffff !important;
+    font-weight: 500 !important;
+    font-family: 'Lora', serif !important;
+}
+
+/* Success Messages */
+#kc-feedback.kc-feedback-success {
+    background: rgba(39, 174, 96, 0.9) !important;
+}
+
+/* Info Messages */
+#kc-feedback.kc-feedback-info {
+    background: rgba(52, 152, 219, 0.9) !important;
+}
+
+/* Social Login */
+#kc-social-providers {
+    margin-top: 2rem !important;
+}
+
+#kc-social-providers .kc-social-section {
+    margin-bottom: 2rem !important;
+}
+
+#kc-social-providers .kc-social-provider-logo {
+    margin-right: 1rem !important;
+}
+
+#kc-social-providers .btn-social {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: #ffffff !important;
+    border-radius: 15px !important;
+    padding: 0.75rem 1.5rem !important;
+    margin-bottom: 0.5rem !important;
+    transition: all 0.3s ease !important;
+    font-family: 'Lora', serif !important;
+}
+
+#kc-social-providers .btn-social:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Footer */
+#kc-footer {
+    text-align: center !important;
+    margin-top: 3rem !important;
+    opacity: 0.7 !important;
+    font-size: 0.9rem !important;
+    font-family: 'Lora', serif !important;
+}
+
+#kc-footer a {
+    color: rgba(255, 255, 255, 0.8) !important;
+    text-decoration: none !important;
+}
+
+#kc-footer a:hover {
+    color: #ffffff !important;
+    text-decoration: underline !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-pf-page .card-pf {
+        margin: 1rem !important;
+        padding: 2rem 1.5rem !important;
+        max-width: none !important;
+    }
+
+    #kc-header-wrapper #kc-header {
+        font-size: 2.2rem !important;
+    }
+
+    #kc-form input[type="text"],
+    #kc-form input[type="password"],
+    #kc-form input[type="email"] {
+        padding: 0.875rem 1.25rem !important;
+    }
+}
+
+/* Loading Spinner */
+.kc-feedback-spinner {
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    border-top-color: #ffffff !important;
+}
+
+/* Focus States for Accessibility */
+#kc-form input:focus + label,
+#kc-form input:not(:placeholder-shown) + label {
+    color: #ffffff !important;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}

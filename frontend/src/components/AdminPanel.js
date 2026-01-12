@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api';
-import { Container, Button, Table, Badge, Alert, Spinner, Modal, Form, Row, Col } from 'react-bootstrap';
+import { Container, Button, Table, Badge, Alert, Spinner, Modal, Form, Row, Col, Card } from 'react-bootstrap';
 
 function AdminPanel() {
   const [products, setProducts] = useState([]);
@@ -159,31 +159,96 @@ function AdminPanel() {
   }
 
   return (
-    <Container>
-      <h2 className="mb-4">Admin Panel</h2>
+    <Container fluid className="py-4" style={{ background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)', minHeight: '100vh', color: '#2c3e50' }}>
+      <Container>
+        {/* Header Section */}
+        <div className="text-center mb-5">
+          <h1 className="display-4 fw-bold text-dark mb-3" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.1)' }}>
+            ⚙️ Admin Panel
+          </h1>
+          <p className="lead text-muted mb-4">
+            Manage products and orders with full administrative control
+          </p>
 
-      {error && (
-        <Alert variant="danger" dismissible onClose={() => setError(null)}>
-          {error}
-        </Alert>
-      )}
+          {/* Stats Cards */}
+          <Row className="mb-4">
+            <Col md={3}>
+              <Card className="bg-primary bg-opacity-10 text-primary border-0 shadow-lg">
+                <Card.Body className="text-center py-3">
+                  <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>📦</div>
+                  <h4 className="mb-1">{products.length}</h4>
+                  <small>Total Products</small>
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col md={3}>
+              <Card className="bg-info bg-opacity-10 text-info border-0 shadow-lg">
+                <Card.Body className="text-center py-3">
+                  <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>📋</div>
+                  <h4 className="mb-1">{orders.length}</h4>
+                  <small>Total Orders</small>
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col md={3}>
+              <Card className="bg-success bg-opacity-10 text-success border-0 shadow-lg">
+                <Card.Body className="text-center py-3">
+                  <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>💰</div>
+                  <h4 className="mb-1">${orders.reduce((sum, order) => sum + order.totalAmount, 0).toFixed(2)}</h4>
+                  <small>Total Revenue</small>
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col md={3}>
+              <Card className="bg-warning bg-opacity-10 text-warning border-0 shadow-lg">
+                <Card.Body className="text-center py-3">
+                  <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>✅</div>
+                  <h4 className="mb-1">{orders.filter(order => order.status === 'DELIVERED').length}</h4>
+                  <small>Completed Orders</small>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        </div>
 
-      {/* Navigation Tabs */}
-      <div className="mb-4">
-        <Button
-          variant={activeTab === 'products' ? 'primary' : 'outline-primary'}
-          className="me-2"
-          onClick={() => setActiveTab('products')}
-        >
-          Manage Products
-        </Button>
-        <Button
-          variant={activeTab === 'orders' ? 'primary' : 'outline-primary'}
-          onClick={() => setActiveTab('orders')}
-        >
-          Manage Orders
-        </Button>
-      </div>
+        {error && (
+          <Alert variant="danger" className="shadow-lg mb-4 border-0">
+            <Alert.Heading>❌ Error</Alert.Heading>
+            <p className="mb-0">{error}</p>
+          </Alert>
+        )}
+
+        {/* Navigation Tabs */}
+        <Card className="bg-white bg-opacity-75 border-0 shadow-lg mb-4">
+          <Card.Body className="py-3">
+            <div className="d-flex justify-content-center">
+              <Button
+                variant={activeTab === 'products' ? 'primary' : 'outline-primary'}
+                className="me-3 px-4 py-2"
+                onClick={() => setActiveTab('products')}
+                style={{
+                  borderRadius: '25px',
+                  fontWeight: 'bold',
+                  transition: 'all 0.3s ease'
+                }}
+              >
+                📦 Manage Products
+              </Button>
+              <Button
+                variant={activeTab === 'orders' ? 'primary' : 'outline-primary'}
+                className="px-4 py-2"
+                onClick={() => setActiveTab('orders')}
+                style={{
+                  borderRadius: '25px',
+                  fontWeight: 'bold',
+                  transition: 'all 0.3s ease'
+                }}
+              >
+                📋 Manage Orders
+              </Button>
+            </div>
+          </Card.Body>
+        </Card>
 
       {/* Products Management */}
       {activeTab === 'products' && (
@@ -372,6 +437,7 @@ function AdminPanel() {
           </Form>
         </Modal.Body>
       </Modal>
+      </Container>
     </Container>
   );
 }

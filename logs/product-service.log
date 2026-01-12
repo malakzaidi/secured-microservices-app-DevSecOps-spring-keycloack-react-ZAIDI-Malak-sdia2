@@ -33,8 +33,8 @@
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
 [[1;34mINFO[m] [1;31mBUILD FAILURE[m
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
-[[1;34mINFO[m] Total time:  12.125 s
-[[1;34mINFO[m] Finished at: 2026-01-11T19:15:43+01:00
+[[1;34mINFO[m] Total time:  3.720 s
+[[1;34mINFO[m] Finished at: 2026-01-12T01:08:31+01:00
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
 [[1;31mERROR[m] Failed to execute goal [32morg.apache.maven.plugins:maven-compiler-plugin:3.14.1:testCompile[m [1m(default-testCompile)[m on project [36mproduct-service[m: [1;31mCompilation failure[m: Compilation failure: 
 [[1;31mERROR[m] /home/malak/IdeaProjects/security-of-ds-project/product-service/src/test/java/org/security/productservice/service/ProductServiceTest.java:[41,30] incompatible types: double cannot be converted to java.math.BigDecimal
