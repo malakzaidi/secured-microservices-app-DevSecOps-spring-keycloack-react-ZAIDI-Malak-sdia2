@@ -34,3 +34,4 @@ build/
 
 README-Keycloak-Setup.mddata/
 data/
+frontend/node_modules/
