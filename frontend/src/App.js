@@ -158,6 +158,7 @@ function App() {
               <Nav className="me-auto">
                 <Nav.Link as={Link} to="/products" style={{ fontFamily: 'Lora, serif', fontWeight: '500', color: '#2c3e50' }}>Products</Nav.Link>
                 {isClient() && <Nav.Link as={Link} to="/orders" style={{ fontFamily: 'Lora, serif', fontWeight: '500', color: '#2c3e50' }}>My Orders</Nav.Link>}
+                {isClient() && <Nav.Link as={Link} to="/create-order" style={{ fontFamily: 'Lora, serif', fontWeight: '500', color: '#2c3e50' }}>🛒 Create Order</Nav.Link>}
                 {isAdmin() && <Nav.Link as={Link} to="/admin" style={{ fontFamily: 'Lora, serif', fontWeight: '500', color: '#2c3e50' }}>Admin Panel</Nav.Link>}
               </Nav>
               <Nav>
