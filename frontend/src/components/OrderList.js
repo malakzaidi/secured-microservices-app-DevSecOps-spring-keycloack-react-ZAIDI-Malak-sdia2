@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import api from '../api';
-import { Container, Table, Badge, Button, Alert, Spinner, Modal } from 'react-bootstrap';
+import { apiOrder } from '../api';
+import { Container, Table, Badge, Button, Alert, Spinner, Modal, Row, Col, Card } from 'react-bootstrap';
 
 function OrderList() {
   const [orders, setOrders] = useState([]);
@@ -16,7 +16,7 @@ function OrderList() {
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const response = await api.get('/orders/my-orders');
+      const response = await apiOrder.get('/orders/my-orders');
       setOrders(response.data);
       setError(null);
     } catch (err) {
@@ -77,12 +77,12 @@ function OrderList() {
   }
 
   return (
-    <Container fluid className="py-4" style={{ background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)', minHeight: '100vh', color: '#2c3e50' }}>
+    <Container fluid className="py-4" style={{ fontFamily: 'Lora, serif', backgroundColor: '#f8f9fa', minHeight: '100vh', color: '#2c3e50' }}>
       <Container>
         {/* Header Section */}
         <div className="text-center mb-5">
           <h1 className="display-4 fw-bold text-dark mb-3" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.1)' }}>
-            📋 My Orders
+            My Orders
           </h1>
           <p className="lead text-muted mb-4">
             Track and manage your order history
@@ -354,18 +354,7 @@ function OrderList() {
         </Modal>
       </Container>
 
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
+
     </Container>
   );
 }

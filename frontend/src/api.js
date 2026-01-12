@@ -1,14 +1,18 @@
 import axios from 'axios';
 
-// Create axios instance with base configuration
+// Create axios instance for product-service
 const api = axios.create({
-  baseURL: 'http://localhost:8087',
+  baseURL: 'http://localhost:8083',
 });
 
-// Request interceptor to add JWT token
+// Create axios instance for command-service
+const apiOrder = axios.create({
+  baseURL: 'http://localhost:8082',
+});
+
+// Request interceptor for product-service
 api.interceptors.request.use(
   (config) => {
-    // Get token from localStorage (set by Keycloak)
     const token = localStorage.getItem('kc_token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -20,20 +24,43 @@ api.interceptors.request.use(
   }
 );
 
-// Response interceptor to handle authentication errors
+// Request interceptor for command-service
+apiOrder.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('kc_token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// Response interceptor for product-service
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Token expired or invalid
       console.log('Authentication error - token may be expired or invalid');
-      // Clear local storage
       localStorage.removeItem('kc_token');
-      // Instead of reloading, let the app handle authentication
-      // The Keycloak initialization will handle redirecting to login if needed
+    }
+    return Promise.reject(error);
+  }
+);
+
+// Response interceptor for command-service
+apiOrder.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      console.log('Authentication error - token may be expired or invalid');
+      localStorage.removeItem('kc_token');
     }
     return Promise.reject(error);
   }
 );
 
 export default api;
+export { apiOrder };

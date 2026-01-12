@@ -26,8 +26,8 @@ fi
 
 echo "🔑 Token admin obtenu"
 
-# Désactiver CSP pour le realm microservices-realm
-echo "🚫 Désactivation CSP..."
+# Désactiver CSP pour le realm microservices-realm et configurer le thème
+echo "🚫 Désactivation CSP et configuration thème..."
 curl -s -X PUT http://localhost:8180/admin/realms/microservices-realm \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
@@ -36,7 +36,8 @@ curl -s -X PUT http://localhost:8180/admin/realms/microservices-realm \
       "contentSecurityPolicy": {
         "enabled": false
       }
-    }
+    },
+    "loginTheme": "my-theme"
   }'
 
 # Configurer CORS

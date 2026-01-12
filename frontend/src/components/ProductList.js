@@ -54,12 +54,12 @@ function ProductList({ authTrigger }) {
   }
 
   return (
-    <Container fluid className="py-4" style={{ background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)', minHeight: '100vh', color: '#2c3e50' }}>
+    <Container fluid className="py-4" style={{ fontFamily: 'Lora, serif', backgroundColor: '#f8f9fa', minHeight: '100vh', color: '#2c3e50' }}>
       <Container>
         {/* Header Section */}
         <div className="text-center mb-5">
           <h1 className="display-4 fw-bold text-dark mb-3" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.1)' }}>
-            🛍️ Product Catalog
+            Product Catalog
           </h1>
           <p className="lead text-muted mb-4">
             Discover our premium collection of products
@@ -70,7 +70,7 @@ function ProductList({ authTrigger }) {
             <Col md={4}>
               <Card className="bg-primary bg-opacity-10 text-primary border-0 shadow-lg">
                 <Card.Body className="text-center py-3">
-                  <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>📦</div>
+
                   <h4 className="mb-1">{products.length}</h4>
                   <small>Total Products</small>
                 </Card.Body>
@@ -79,7 +79,6 @@ function ProductList({ authTrigger }) {
             <Col md={4}>
               <Card className="bg-success bg-opacity-10 text-success border-0 shadow-lg">
                 <Card.Body className="text-center py-3">
-                  <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>✅</div>
                   <h4 className="mb-1">{products.filter(p => p.stockQuantity > 0).length}</h4>
                   <small>In Stock</small>
                 </Card.Body>
@@ -88,7 +87,6 @@ function ProductList({ authTrigger }) {
             <Col md={4}>
               <Card className="bg-info bg-opacity-10 text-info border-0 shadow-lg">
                 <Card.Body className="text-center py-3">
-                  <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>💰</div>
                   <h4 className="mb-1">${products.reduce((sum, p) => sum + p.price, 0).toFixed(2)}</h4>
                   <small>Total Value</small>
                 </Card.Body>
@@ -103,14 +101,14 @@ function ProductList({ authTrigger }) {
             className="shadow-lg"
             style={{ borderRadius: '25px', padding: '12px 30px' }}
           >
-            🔄 Refresh Catalog
+            Refresh Catalog
           </Button>
         </div>
 
         {products.length === 0 ? (
           <Card className="bg-white bg-opacity-75 text-dark border-0 shadow-lg">
             <Card.Body className="text-center py-5">
-              <div style={{ fontSize: '4rem', marginBottom: '1rem', opacity: '0.5' }}>📭</div>
+
               <h3>No Products Available</h3>
               <p className="text-muted">Our catalog is currently being updated. Please check back later.</p>
             </Card.Body>
@@ -153,14 +151,7 @@ function ProductList({ authTrigger }) {
                       justifyContent: 'center'
                     }}
                   >
-                    <span style={{
-                      fontSize: '4rem',
-                      filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.3))',
-                      animation: 'pulse 2s infinite'
-                    }}>
-                      {product.stockQuantity > 10 ? '📦' :
-                       product.stockQuantity > 0 ? '📦' : '🚫'}
-                    </span>
+
 
                     {/* Stock Badge */}
                     <Badge
@@ -212,7 +203,7 @@ function ProductList({ authTrigger }) {
                       size="lg"
                       style={{ borderRadius: '25px', padding: '10px 25px' }}
                     >
-                      👁️ View Details
+                      View Details
                     </Button>
                   </div>
                 </Card>
@@ -227,22 +218,18 @@ function ProductList({ authTrigger }) {
             <Card.Body className="text-center py-4">
               <Row>
                 <Col md={3}>
-                  <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>📊</div>
                   <h5>{products.length}</h5>
                   <small className="text-muted">Total Products</small>
                 </Col>
                 <Col md={3}>
-                  <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>✅</div>
                   <h5>{products.filter(p => p.stockQuantity > 0).length}</h5>
                   <small className="text-muted">In Stock</small>
                 </Col>
                 <Col md={3}>
-                  <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🚫</div>
                   <h5>{products.filter(p => p.stockQuantity === 0).length}</h5>
                   <small className="text-muted">Out of Stock</small>
                 </Col>
                 <Col md={3}>
-                  <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>💰</div>
                   <h5>${products.reduce((sum, p) => sum + p.price, 0).toFixed(2)}</h5>
                   <small className="text-muted">Total Value</small>
                 </Col>
@@ -252,24 +239,7 @@ function ProductList({ authTrigger }) {
         )}
       </Container>
 
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
 
-        @keyframes pulse {
-          0% { transform: scale(1); }
-          50% { transform: scale(1.05); }
-          100% { transform: scale(1); }
-        }
-      `}</style>
     </Container>
   );
 }

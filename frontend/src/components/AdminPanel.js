@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api';
+import { apiOrder } from '../api';
 import { Container, Button, Table, Badge, Alert, Spinner, Modal, Form, Row, Col, Card } from 'react-bootstrap';
 
 function AdminPanel() {
@@ -44,7 +45,7 @@ function AdminPanel() {
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const response = await api.get('/orders');
+      const response = await apiOrder.get('/orders');
       setOrders(response.data);
       setError(null);
     } catch (err) {
@@ -70,7 +71,8 @@ function AdminPanel() {
       fetchProducts();
     } catch (err) {
       console.error('Error creating product:', err);
-      setError('Failed to create product');
+      const errorMessage = err.response?.data?.message || err.response?.data?.error || err.message || 'Failed to create product';
+setError(`Error creating product: ${errorMessage}`);
     }
   };
 
@@ -90,7 +92,8 @@ function AdminPanel() {
       fetchProducts();
     } catch (err) {
       console.error('Error updating product:', err);
-      setError('Failed to update product');
+      const errorMessage = err.response?.data?.message || err.response?.data?.error || err.message || 'Failed to update product';
+setError(`Error updating product: ${errorMessage}`);
     }
   };
 
@@ -101,14 +104,15 @@ function AdminPanel() {
         fetchProducts();
       } catch (err) {
         console.error('Error deleting product:', err);
-        setError('Failed to delete product');
+        const errorMessage = err.response?.data?.message || err.response?.data?.error || err.message || 'Failed to delete product';
+setError(`Error deleting product: ${errorMessage}`);
       }
     }
   };
 
   const handleUpdateOrderStatus = async (orderId, newStatus) => {
     try {
-      await api.put(`/orders/${orderId}/status?status=${newStatus}`);
+      await apiOrder.put(`/orders/${orderId}/status?status=${newStatus}`);
       fetchOrders();
     } catch (err) {
       console.error('Error updating order status:', err);
@@ -159,7 +163,7 @@ function AdminPanel() {
   }
 
   return (
-    <Container fluid className="py-4" style={{ background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)', minHeight: '100vh', color: '#2c3e50' }}>
+    <Container fluid className="py-4" style={{ fontFamily: 'Lora, serif', backgroundColor: '#f8f9fa', minHeight: '100vh', color: '#2c3e50' }}>
       <Container>
         {/* Header Section */}
         <div className="text-center mb-5">

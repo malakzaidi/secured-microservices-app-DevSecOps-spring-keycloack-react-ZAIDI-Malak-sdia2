@@ -50,6 +50,7 @@ services:
       - "8180:8080"
     volumes:
       - ./keycloak-init.sh:/opt/keycloak/init.sh
+      - ./keycloak-themes:/opt/keycloak/themes
       - keycloak-data:/opt/keycloak/data
 
 volumes:

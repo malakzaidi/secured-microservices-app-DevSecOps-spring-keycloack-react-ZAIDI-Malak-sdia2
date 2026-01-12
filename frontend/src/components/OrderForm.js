@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api';
+import { apiOrder } from '../api';
 import { Container, Button, Card, Row, Col, Badge, Alert, Spinner, Modal, InputGroup, Form, ToastContainer, Toast } from 'react-bootstrap';
 
 function OrderForm() {
@@ -113,7 +114,7 @@ function OrderForm() {
         }))
       };
 
-      const response = await api.post('/orders', orderRequest);
+      const response = await apiOrder.post('/orders', orderRequest);
       setCreatedOrder(response.data);
       setShowSuccessModal(true);
       setSelectedItems([]); // Clear the order
@@ -138,7 +139,7 @@ function OrderForm() {
   }
 
   return (
-    <Container fluid className="py-4" style={{ background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)', minHeight: '100vh', color: '#2c3e50' }}>
+    <Container fluid className="py-4" style={{ fontFamily: 'Lora, serif', backgroundColor: '#f8f9fa', minHeight: '100vh', color: '#2c3e50' }}>
       <Container>
         {/* Header Section */}
         <div className="text-center mb-5">
@@ -626,29 +627,7 @@ function OrderForm() {
           </Toast>
         </ToastContainer>
 
-        <style jsx>{`
-          @keyframes fadeInUp {
-            from {
-              opacity: 0;
-              transform: translateY(30px);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
-          }
 
-          @keyframes slideInRight {
-            from {
-              opacity: 0;
-              transform: translateX(30px);
-            }
-            to {
-              opacity: 1;
-              transform: translateX(0);
-            }
-          }
-        `}</style>
       </Container>
   );
 }
