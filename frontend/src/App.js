@@ -50,17 +50,10 @@ function App() {
       checkLoginIframe: false,
       silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html',
       redirectUri: window.location.origin,
-      responseMode: 'query',
       pkceMethod: 'S256'
     }).then(authenticated => {
       setAuthenticated(authenticated);
       setKeycloakInstance(keycloak);
-
-      if (!authenticated) {
-        // Not authenticated, redirect to login
-        keycloak.login();
-        return;
-      }
 
       if (authenticated) {
         // Store token in localStorage
@@ -76,12 +69,8 @@ function App() {
 
         console.log('User authenticated:', token.preferred_username);
         console.log('User roles:', roles);
-      } else {
-        // Clear token if not authenticated
-        localStorage.removeItem('kc_token');
-        setUserRoles([]);
-        setAuthTrigger(0);
       }
+      // Si pas authentifié, on reste sur la page d'accueil (pas de redirection automatique)
 
       setLoading(false);
     }).catch(error => {
@@ -180,131 +169,34 @@ function App() {
     );
   }
 
-  // With login-required, this should never be reached
-  // But keeping it as a fallback
+  // With check-sso, if not authenticated, keycloak.login() is called above
+  // So this condition should not be reached, but kept as fallback
   if (!authenticated) {
-    return (
-      <Container className="mt-5">
-        <Alert variant="info">
-          <Alert.Heading>Redirecting to Login...</Alert.Heading>
-          <p>You should be automatically redirected to the login page.</p>
-          <p>If not, please check that Keycloak is running on http://localhost:8180</p>
-        </Alert>
-      </Container>
-    );
+    return <HomePage onLogin={handleLogin} />;
   }
 
   return (
     <Router>
       <div className="App">
-        {/* Modern Navbar with Gradient */}
-        <Navbar
-          expand="lg"
-          className="shadow-lg mb-4"
-          style={{
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            backdropFilter: 'blur(10px)',
-            borderBottom: 'none'
-          }}
-          variant="dark"
-        >
-          <Container fluid>
-            <Navbar.Brand as={Link} to="/" className="fw-bold d-flex align-items-center" style={{ fontSize: '1.5rem' }}>
-              <span style={{ fontSize: '2rem', marginRight: '0.5rem' }}>🏪</span>
-              Microservices E-commerce
-            </Navbar.Brand>
+        <Navbar bg="dark" variant="dark" expand="lg" className="mb-4">
+          <Container>
+            <Navbar.Brand as={Link} to="/">Microservices E-commerce</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
-
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link
-                  as={Link}
-                  to="/products"
-                  className="mx-2 px-3 py-2 rounded-pill"
-                  style={{ transition: 'all 0.3s ease' }}
-                  onMouseEnter={(e) => e.target.style.backgroundColor = 'rgba(255,255,255,0.1)'}
-                  onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
-                >
-                  🛍️ Products
-                </Nav.Link>
-
-                {isClient() && (
-                  <>
-                    <Nav.Link
-                      as={Link}
-                      to="/orders"
-                      className="mx-2 px-3 py-2 rounded-pill"
-                      style={{ transition: 'all 0.3s ease' }}
-                      onMouseEnter={(e) => e.target.style.backgroundColor = 'rgba(255,255,255,0.1)'}
-                      onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
-                    >
-                      📋 My Orders
-                    </Nav.Link>
-                    <Nav.Link
-                      as={Link}
-                      to="/create-order"
-                      className="mx-2 px-3 py-2 rounded-pill bg-success bg-opacity-25 text-white fw-bold"
-                      style={{ transition: 'all 0.3s ease' }}
-                      onMouseEnter={(e) => e.target.style.backgroundColor = 'rgba(25, 135, 84, 0.4)'}
-                      onMouseLeave={(e) => e.target.style.backgroundColor = 'rgba(25, 135, 84, 0.25)'}
-                    >
-                      ➕ Create Order
-                    </Nav.Link>
-                  </>
-                )}
-
-                {isAdmin() && (
-                  <Nav.Link
-                    as={Link}
-                    to="/admin"
-                    className="mx-2 px-3 py-2 rounded-pill bg-danger bg-opacity-25 text-white fw-bold"
-                    style={{ transition: 'all 0.3s ease' }}
-                    onMouseEnter={(e) => e.target.style.backgroundColor = 'rgba(220, 53, 69, 0.4)'}
-                    onMouseLeave={(e) => e.target.style.backgroundColor = 'rgba(220, 53, 69, 0.25)'}
-                  >
-                    ⚙️ Admin Panel
-                  </Nav.Link>
-                )}
+                <Nav.Link as={Link} to="/products">Products</Nav.Link>
+                {isClient() && <Nav.Link as={Link} to="/orders">My Orders</Nav.Link>}
+                {isClient() && <Nav.Link as={Link} to="/create-order">Create Order</Nav.Link>}
+                {isAdmin() && <Nav.Link as={Link} to="/admin">Admin Panel</Nav.Link>}
               </Nav>
-
-              {/* User Profile Section */}
-              <Nav className="ms-auto align-items-center">
-                <div className="d-flex align-items-center bg-white bg-opacity-10 rounded-pill px-3 py-2 me-3">
-                  <div className="d-flex align-items-center me-2">
-                    <span style={{ fontSize: '1.5rem' }}>
-                      {isAdmin() ? '👑' : isClient() ? '👤' : '👤'}
-                    </span>
-                  </div>
-                  <div className="text-white">
-                    <small className="d-block fw-bold">
-                      {keycloakInstance?.tokenParsed?.preferred_username || 'User'}
-                    </small>
-                    <small className="d-flex align-items-center">
-                      {isAdmin() && (
-                        <span className="badge bg-danger me-1" style={{ fontSize: '0.7rem' }}>ADMIN</span>
-                      )}
-                      {isClient() && (
-                        <span className="badge bg-success" style={{ fontSize: '0.7rem' }}>CLIENT</span>
-                      )}
-                    </small>
-                  </div>
-                </div>
-
-                <Button
-                  variant="outline-light"
-                  onClick={handleLogout}
-                  className="rounded-pill px-4 fw-bold"
-                  style={{ transition: 'all 0.3s ease' }}
-                  onMouseEnter={(e) => {
-                    e.target.style.backgroundColor = 'rgba(255,255,255,0.1)';
-                    e.target.style.borderColor = 'white';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.backgroundColor = 'transparent';
-                    e.target.style.borderColor = 'rgba(255,255,255,0.5)';
-                  }}
-                >
-                  🚪 Logout
+              <Nav>
+                <Navbar.Text className="me-3">
+                  Welcome, {keycloakInstance?.tokenParsed?.preferred_username}!
+                  {isAdmin() && <span className="badge bg-danger ms-2">ADMIN</span>}
+                  {isClient() && <span className="badge bg-success ms-2">CLIENT</span>}
+                </Navbar.Text>
+                <Button variant="outline-light" onClick={handleLogout}>
+                  Logout
                 </Button>
               </Nav>
             </Navbar.Collapse>

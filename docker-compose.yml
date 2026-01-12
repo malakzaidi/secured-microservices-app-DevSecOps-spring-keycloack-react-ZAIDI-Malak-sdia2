@@ -1,51 +1,58 @@
 version: '3.8'
 
 services:
-  # PostgreSQL Database
-  postgres:
+  postgres-product:
     image: postgres:15
-    container_name: microservices-postgres
+    container_name: postgres-product
     environment:
-      POSTGRES_DB: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: product_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
     ports:
-      - "5432:5432"
+      - "5435:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./setup-postgresql.sql:/docker-entrypoint-initdb.d/setup-postgresql.sql
-    networks:
-      - microservices-network
+      - postgres-product-data:/var/lib/postgresql/data
 
-  # Keycloak Identity Provider
+  postgres-order:
+    image: postgres:15
+    container_name: postgres-order
+    environment:
+      POSTGRES_DB: order_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5436:5432"
+    volumes:
+      - postgres-order-data:/var/lib/postgresql/data
+
   keycloak:
     image: quay.io/keycloak/keycloak:21.1.2
-    container_name: microservices-keycloak
+    container_name: keycloak
     environment:
+      KC_HOSTNAME: localhost
+      KC_HOSTNAME_PORT: 8180
+      KC_HOSTNAME_STRICT: "false"
+      KC_HOSTNAME_STRICT_HTTPS: "false"
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
-      KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://postgres:5432/postgres
-      KC_DB_USERNAME: postgres
-      KC_DB_PASSWORD: postgres
-      KC_HOSTNAME_STRICT: false
-      KC_HOSTNAME_STRICT_HTTPS: false
-      KC_HTTP_ENABLED: true
+      KC_HTTP_ENABLED: "true"
+      # Disable CSP completely for iframe support
+      KC_SPI_SECURITY_CSP_ENABLED: "false"
+      KC_SPI_SECURITY_CSP_REPORT_ONLY: "true"
+      # Allow all CORS
+      KC_HTTP_CORS_ENABLED: "true"
+      KC_HTTP_CORS_MAX_AGE: 1000
+      KC_HTTP_CORS_ALLOWED_METHODS: "*"
+      KC_HTTP_CORS_ALLOWED_HEADERS: "*"
+      KC_HTTP_CORS_EXPOSED_HEADERS: "*"
+    command: start-dev
     ports:
       - "8180:8080"
-    depends_on:
-      - postgres
-    command: start-dev --import-realm
     volumes:
-      - ./keycloak/realm-export.json:/opt/keycloak/data/import/realm-export.json
-      - keycloak_data:/opt/keycloak/data
-    networks:
-      - microservices-network
+      - ./keycloak-init.sh:/opt/keycloak/init.sh
+      - keycloak-data:/opt/keycloak/data
 
 volumes:
-  postgres_data:
-  keycloak_data:
-
-networks:
-  microservices-network:
-    driver: bridge
+  postgres-product-data:
+  postgres-order-data:
+  keycloak-data:

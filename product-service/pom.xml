@@ -61,6 +61,14 @@
             <version>2.6.0</version>
         </dependency>
 
+        <!-- PostgreSQL Driver for production -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- H2 Database for testing (optional) -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>

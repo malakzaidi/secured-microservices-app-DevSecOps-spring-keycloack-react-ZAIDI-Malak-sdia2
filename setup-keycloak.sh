@@ -86,8 +86,8 @@ curl -s -X POST http://localhost:8180/admin/realms/microservices-realm/clients \
       "tls.client.certificate.bound.access.tokens": "false",
       "saml.authnstatement": "false",
       "display.on.consent.screen": "false",
-      "saml.onetimeuse.condition": "false"
-       "pkce.code.challenge.method": "S256",
+      "saml.onetimeuse.condition": "false",
+       "pkce.code.challenge.method": "S256"
     }
   }'
 

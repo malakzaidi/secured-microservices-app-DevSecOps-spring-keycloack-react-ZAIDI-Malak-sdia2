@@ -1,365 +1,446 @@
-import React, { useState } from 'react';
-import { Container, Row, Col, Card, Button, Alert, Jumbotron } from 'react-bootstrap';
+import React from 'react';
+import { Container, Row, Col, Button, Navbar, Nav } from 'react-bootstrap';
 
 function HomePage({ onLogin }) {
-  const [showDetails, setShowDetails] = useState(false);
-
   return (
-    <div className="app-container">
-      {/* Hero Section */}
-      <div className="bg-primary text-white py-5">
+    <div style={{ fontFamily: 'Lora, serif', minHeight: '100vh', backgroundColor: '#f8f9fa' }}>
+      {/* Navigation Bar */}
+      <Navbar
+        expand="lg"
+        className="shadow-sm"
+        style={{
+          backgroundColor: '#ffffff',
+          borderBottom: '1px solid #e9ecef',
+          padding: '1rem 0'
+        }}
+      >
         <Container>
-          <Row className="align-items-center">
-            <Col lg={8}>
-              <h1 className="display-4 fw-bold mb-3">
-                🛒 Application Micro-services E-commerce
-              </h1>
-              <p className="lead mb-4">
-                Plateforme moderne de gestion des produits et commandes basée sur une architecture micro-services sécurisée
-              </p>
+          <Navbar.Brand
+            href="#"
+            style={{
+              fontFamily: 'Lora, serif',
+              fontSize: '1.8rem',
+              fontWeight: '700',
+              color: '#2c3e50'
+            }}
+          >
+            Microservices E-commerce
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="ms-auto">
               <Button
-                variant="light"
-                size="lg"
-                className="me-3"
-                onClick={() => setShowDetails(!showDetails)}
-              >
-                📋 En savoir plus
-              </Button>
-              <Button
-                variant="outline-light"
-                size="lg"
+                variant="outline-primary"
+                className="px-4 py-2"
+                style={{
+                  fontFamily: 'Lora, serif',
+                  fontWeight: '500',
+                  borderRadius: '25px',
+                  border: '2px solid #3498db'
+                }}
                 onClick={onLogin}
               >
-                🔐 Se connecter
+                Login
               </Button>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+
+      {/* Hero Section */}
+      <section
+        style={{
+          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          color: 'white',
+          padding: '120px 0 100px 0',
+          position: 'relative',
+          overflow: 'hidden'
+        }}
+      >
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0,0,0,0.1)',
+            zIndex: 1
+          }}
+        ></div>
+        <Container style={{ position: 'relative', zIndex: 2 }}>
+          <Row className="align-items-center">
+            <Col lg={8}>
+              <h1
+                style={{
+                  fontFamily: 'Lora, serif',
+                  fontSize: '3.5rem',
+                  fontWeight: '700',
+                  lineHeight: '1.2',
+                  marginBottom: '1.5rem'
+                }}
+              >
+                Microservices E-commerce
+                <br />
+                <span style={{ fontWeight: '400' }}>Management Platform</span>
+              </h1>
+              <p
+                style={{
+                  fontSize: '1.3rem',
+                  lineHeight: '1.6',
+                  marginBottom: '2.5rem',
+                  opacity: '0.9'
+                }}
+              >
+                Complete product catalog and order management system built with Spring Boot microservices,
+                React frontend, and Keycloak security. Enterprise-grade architecture with OAuth2/OpenID Connect
+                authentication and role-based access control.
+              </p>
+              <div>
+                <Button
+                  size="lg"
+                  style={{
+                    fontFamily: 'Lora, serif',
+                    fontWeight: '600',
+                    padding: '15px 40px',
+                    fontSize: '1.1rem',
+                    borderRadius: '30px',
+                    backgroundColor: 'white',
+                    color: '#667eea',
+                    border: 'none',
+                    boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onClick={onLogin}
+                  onMouseEnter={(e) => {
+                    e.target.style.transform = 'translateY(-2px)';
+                    e.target.style.boxShadow = '0 8px 25px rgba(0,0,0,0.3)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.transform = 'translateY(0)';
+                    e.target.style.boxShadow = '0 4px 15px rgba(0,0,0,0.2)';
+                  }}
+                >
+                  Access Platform
+                </Button>
+              </div>
             </Col>
             <Col lg={4} className="text-center">
-              <div className="bg-white rounded-circle d-inline-flex align-items-center justify-content-center"
-                   style={{ width: '120px', height: '120px' }}>
-                <span style={{ fontSize: '3rem' }}>🏪</span>
+              <div
+                style={{
+                  backgroundColor: 'rgba(255,255,255,0.1)',
+                  backdropFilter: 'blur(10px)',
+                  borderRadius: '20px',
+                  padding: '3rem',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.1)'
+                }}
+              >
+                <div
+                  style={{
+                    width: '80px',
+                    height: '80px',
+                    backgroundColor: 'white',
+                    borderRadius: '50%',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '1.5rem',
+                    boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
+                  }}
+                >
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#667eea" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M2 17L12 22L22 17" stroke="#667eea" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="#667eea" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <h3
+                  style={{
+                    fontFamily: 'Lora, serif',
+                    fontWeight: '600',
+                    marginBottom: '1rem'
+                  }}
+                >
+                  Enterprise Ready
+                </h3>
+                <p style={{ fontSize: '0.95rem', opacity: '0.8', lineHeight: '1.5' }}>
+                  Built with industry-standard security practices and scalable architecture
+                </p>
               </div>
             </Col>
           </Row>
         </Container>
-      </div>
+      </section>
 
-      {/* Details Section */}
-      {showDetails && (
-        <Container className="py-5">
-          <Row className="mb-4">
+      {/* Features Section */}
+      <section style={{ padding: '80px 0', backgroundColor: '#ffffff' }}>
+        <Container>
+          <Row className="text-center mb-5">
             <Col>
-              <h2 className="text-center mb-4">🎯 Objectif du Projet</h2>
-              <Alert variant="info" className="text-center">
-                <h5>Concevoir et développer une application web moderne basée sur une architecture micro-services sécurisée</h5>
-                <p className="mb-0">
-                  L'application permettra la gestion des produits et des commandes d'une entreprise,
-                  tout en respectant les standards industriels en matière de sécurité, modularité, conteneurisation et DevSecOps.
-                </p>
-              </Alert>
+              <h2
+                style={{
+                  fontFamily: 'Lora, serif',
+                  fontSize: '2.5rem',
+                  fontWeight: '700',
+                  color: '#2c3e50',
+                  marginBottom: '1rem'
+                }}
+              >
+                Advanced Platform Features
+              </h2>
+              <p
+                style={{
+                  fontSize: '1.1rem',
+                  color: '#6c757d',
+                  maxWidth: '600px',
+                  margin: '0 auto'
+                }}
+              >
+                Comprehensive product and order management with enterprise-grade security
+              </p>
             </Col>
           </Row>
 
-          {/* Architecture */}
-          <Row className="mb-4">
-            <Col>
-              <h3 className="text-center mb-4">🏗️ Architecture Générale</h3>
-            </Col>
-          </Row>
-
-          <Row className="mb-4">
-            <Col md={6} lg={3} className="mb-4">
-              <Card className="h-100 text-center shadow-sm">
-                <Card.Body>
-                  <div className="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
-                       style={{ width: '60px', height: '60px' }}>
-                    <span style={{ fontSize: '1.5rem' }}>⚛️</span>
-                  </div>
-                  <Card.Title>Frontend React</Card.Title>
-                  <Card.Text>
-                    Interface utilisateur sécurisée avec authentification Keycloak et adaptation selon les rôles utilisateur.
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-
-            <Col md={6} lg={3} className="mb-4">
-              <Card className="h-100 text-center shadow-sm">
-                <Card.Body>
-                  <div className="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
-                       style={{ width: '60px', height: '60px' }}>
-                    <span style={{ fontSize: '1.5rem' }}>🚪</span>
-                  </div>
-                  <Card.Title>API Gateway</Card.Title>
-                  <Card.Text>
-                    Point d'entrée unique pour le frontend React avec validation des tokens JWT et routage intelligent.
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-
-            <Col md={6} lg={3} className="mb-4">
-              <Card className="h-100 text-center shadow-sm">
-                <Card.Body>
-                  <div className="bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
-                       style={{ width: '60px', height: '60px' }}>
-                    <span style={{ fontSize: '1.5rem' }}>📦</span>
-                  </div>
-                  <Card.Title>Micro-service Produit</Card.Title>
-                  <Card.Text>
-                    Gestion complète du catalogue des produits avec opérations CRUD pour les administrateurs.
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-
-            <Col md={6} lg={3} className="mb-4">
-              <Card className="h-100 text-center shadow-sm">
-                <Card.Body>
-                  <div className="bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
-                       style={{ width: '60px', height: '60px' }}>
-                    <span style={{ fontSize: '1.5rem' }}>📋</span>
-                  </div>
-                  <Card.Title>Micro-service Commande</Card.Title>
-                  <Card.Text>
-                    Gestion des commandes clients avec calcul automatique des montants et vérification des stocks.
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-
-          {/* Fonctionnalités */}
-          <Row className="mb-4">
-            <Col>
-              <h3 className="text-center mb-4">✨ Fonctionnalités Principales</h3>
-            </Col>
-          </Row>
-
-          <Row className="mb-4">
-            <Col md={6}>
-              <Card className="mb-4">
-                <Card.Header className="bg-danger text-white">
-                  <h5 className="mb-0">👑 Rôle ADMINISTRATEUR</h5>
-                </Card.Header>
-                <Card.Body>
-                  <ul className="list-unstyled">
-                    <li>✅ Ajouter un produit</li>
-                    <li>✅ Modifier un produit</li>
-                    <li>✅ Supprimer un produit</li>
-                    <li>✅ Lister tous les produits</li>
-                    <li>✅ Consulter un produit par identifiant</li>
-                    <li>✅ Lister toutes les commandes</li>
-                    <li>✅ Gestion complète des stocks</li>
-                  </ul>
-                </Card.Body>
-              </Card>
-            </Col>
-
-            <Col md={6}>
-              <Card className="mb-4">
-                <Card.Header className="bg-success text-white">
-                  <h5 className="mb-0">👤 Rôle CLIENT</h5>
-                </Card.Header>
-                <Card.Body>
-                  <ul className="list-unstyled">
-                    <li>✅ Afficher le catalogue des produits</li>
-                    <li>✅ Créer une commande</li>
-                    <li>✅ Consulter ses propres commandes</li>
-                    <li>✅ Calcul automatique du montant total</li>
-                    <li>✅ Vérification de disponibilité des stocks</li>
-                  </ul>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-
-          {/* Sécurité */}
-          <Row className="mb-4">
-            <Col>
-              <h3 className="text-center mb-4">🔒 Sécurité avec Keycloak</h3>
-            </Col>
-          </Row>
-
-          <Row className="mb-4">
-            <Col md={4} className="mb-3">
-              <Card className="text-center h-100">
-                <Card.Body>
-                  <div className="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
-                       style={{ width: '50px', height: '50px' }}>
-                    <span style={{ fontSize: '1.2rem' }}>🔑</span>
-                  </div>
-                  <h6>OAuth2 / OpenID Connect</h6>
-                  <small className="text-muted">Authentification standardisée et sécurisée</small>
-                </Card.Body>
-              </Card>
-            </Col>
-
-            <Col md={4} className="mb-3">
-              <Card className="text-center h-100">
-                <Card.Body>
-                  <div className="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
-                       style={{ width: '50px', height: '50px' }}>
-                    <span style={{ fontSize: '1.2rem' }}>🎫</span>
-                  </div>
-                  <h6>JWT Tokens</h6>
-                  <small className="text-muted">Gestion de session sécurisée</small>
-                </Card.Body>
-              </Card>
-            </Col>
-
-            <Col md={4} className="mb-3">
-              <Card className="text-center h-100">
-                <Card.Body>
-                  <div className="bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
-                       style={{ width: '50px', height: '50px' }}>
-                    <span style={{ fontSize: '1.2rem' }}>👥</span>
-                  </div>
-                  <h6>Gestion des Rôles</h6>
-                  <small className="text-muted">ADMIN et CLIENT avec autorisations granulaires</small>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-
-          {/* Communication */}
-          <Row className="mb-4">
-            <Col>
-              <h3 className="text-center mb-4">🔄 Communication Inter-services</h3>
-            </Col>
-          </Row>
-
-          <Row className="mb-4">
-            <Col md={6}>
-              <Card>
-                <Card.Body>
-                  <h6 className="text-center mb-3">📡 REST Communication</h6>
-                  <p className="mb-2">
-                    <strong>Micro-service Commande → Micro-service Produit:</strong>
-                  </p>
-                  <ul className="small">
-                    <li>Vérification de disponibilité des produits</li>
-                    <li>Réservation du stock lors de la création de commande</li>
-                    <li>Propagation du token JWT pour l'autorisation</li>
-                  </ul>
-                </Card.Body>
-              </Card>
-            </Col>
-
-            <Col md={6}>
-              <Card>
-                <Card.Body>
-                  <h6 className="text-center mb-3">🚨 Gestion d'Erreurs</h6>
-                  <p className="mb-2">
-                    <strong>Erreurs métier gérées:</strong>
-                  </p>
-                  <ul className="small">
-                    <li>Produit inexistant</li>
-                    <li>Stock insuffisant</li>
-                    <li>Autorisation non accordée</li>
-                    <li>Token JWT invalide ou expiré</li>
-                  </ul>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-
-          {/* Technologies */}
-          <Row className="mb-4">
-            <Col>
-              <h3 className="text-center mb-4">🛠️ Technologies Utilisées</h3>
-            </Col>
-          </Row>
-
-          <Row className="mb-4">
-            <Col>
-              <div className="text-center">
-                <span className="badge bg-primary me-2 p-2">Spring Boot</span>
-                <span className="badge bg-success me-2 p-2">React</span>
-                <span className="badge bg-info me-2 p-2">Keycloak</span>
-                <span className="badge bg-warning text-dark me-2 p-2">PostgreSQL</span>
-                <span className="badge bg-danger me-2 p-2">Docker</span>
-                <span className="badge bg-secondary me-2 p-2">JWT</span>
-                <span className="badge bg-dark me-2 p-2">OAuth2</span>
-                <span className="badge bg-light text-dark me-2 p-2">OpenFeign</span>
-                <span className="badge bg-primary me-2 p-2">Spring Cloud Gateway</span>
-                <span className="badge bg-success me-2 p-2">Eureka</span>
-              </div>
-            </Col>
-          </Row>
-
-          {/* DevSecOps */}
-          <Row className="mb-4">
-            <Col>
-              <h3 className="text-center mb-4">🔍 DevSecOps Intégré</h3>
-            </Col>
-          </Row>
-
-          <Row className="mb-4">
-            <Col md={3} className="mb-3">
-              <Card className="text-center">
-                <Card.Body>
-                  <h6 className="text-primary">📊 SonarQube</h6>
-                  <small>Analyse statique du code</small>
-                </Card.Body>
-              </Card>
-            </Col>
-
-            <Col md={3} className="mb-3">
-              <Card className="text-center">
-                <Card.Body>
-                  <h6 className="text-success">🔍 OWASP</h6>
-                  <small>Analyse des dépendances</small>
-                </Card.Body>
-              </Card>
-            </Col>
-
-            <Col md={3} className="mb-3">
-              <Card className="text-center">
-                <Card.Body>
-                  <h6 className="text-warning">🐳 Trivy</h6>
-                  <small>Scan des images Docker</small>
-                </Card.Body>
-              </Card>
-            </Col>
-
-            <Col md={3} className="mb-3">
-              <Card className="text-center">
-                <Card.Body>
-                  <h6 className="text-danger">🧪 Tests</h6>
-                  <small>JUnit + Mockito</small>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-
-          {/* Call to Action */}
           <Row>
-            <Col className="text-center">
-              <Alert variant="success">
-                <h4>🎉 Prêt à découvrir l'application !</h4>
-                <p className="mb-3">
-                  Cette application démontre une architecture micro-services moderne et sécurisée
-                  respectant tous les standards industriels.
+            <Col md={6} lg={3} className="mb-4">
+              <div
+                style={{
+                  backgroundColor: '#f8f9fa',
+                  borderRadius: '15px',
+                  padding: '2rem',
+                  textAlign: 'center',
+                  height: '100%',
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.transform = 'translateY(-5px)';
+                  e.target.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = 'none';
+                }}
+              >
+                <div
+                  style={{
+                    width: '60px',
+                    height: '60px',
+                    backgroundColor: '#3498db',
+                    borderRadius: '50%',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '1.5rem'
+                  }}
+                >
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 7H4C2.89543 7 2 7.89543 2 9V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19V9C22 7.89543 21.1046 7 20 7Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M16 3H8C6.89543 3 6 3.89543 6 5V7H18V5C18 3.89543 17.1046 3 16 3Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <h5
+                  style={{
+                    fontFamily: 'Lora, serif',
+                    fontWeight: '600',
+                    color: '#2c3e50',
+                    marginBottom: '1rem'
+                  }}
+                >
+                  Product Management
+                </h5>
+                <p style={{ color: '#6c757d', fontSize: '0.95rem', lineHeight: '1.5' }}>
+                  Complete CRUD operations for product catalog management with real-time inventory tracking
                 </p>
-                <Button variant="success" size="lg" onClick={onLogin}>
-                  🚀 Se connecter maintenant
-                </Button>
-              </Alert>
+              </div>
+            </Col>
+
+            <Col md={6} lg={3} className="mb-4">
+              <div
+                style={{
+                  backgroundColor: '#f8f9fa',
+                  borderRadius: '15px',
+                  padding: '2rem',
+                  textAlign: 'center',
+                  height: '100%',
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.transform = 'translateY(-5px)';
+                  e.target.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = 'none';
+                }}
+              >
+                <div
+                  style={{
+                    width: '60px',
+                    height: '60px',
+                    backgroundColor: '#e74c3c',
+                    borderRadius: '50%',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '1.5rem'
+                  }}
+                >
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 12L11 14L15 10" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="white" strokeWidth="2"/>
+                  </svg>
+                </div>
+                <h5
+                  style={{
+                    fontFamily: 'Lora, serif',
+                    fontWeight: '600',
+                    color: '#2c3e50',
+                    marginBottom: '1rem'
+                  }}
+                >
+                  Order Processing
+                </h5>
+                <p style={{ color: '#6c757d', fontSize: '0.95rem', lineHeight: '1.5' }}>
+                  Automated order creation with stock validation and real-time total calculations
+                </p>
+              </div>
+            </Col>
+
+            <Col md={6} lg={3} className="mb-4">
+              <div
+                style={{
+                  backgroundColor: '#f8f9fa',
+                  borderRadius: '15px',
+                  padding: '2rem',
+                  textAlign: 'center',
+                  height: '100%',
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.transform = 'translateY(-5px)';
+                  e.target.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = 'none';
+                }}
+              >
+                <div
+                  style={{
+                    width: '60px',
+                    height: '60px',
+                    backgroundColor: '#27ae60',
+                    borderRadius: '50%',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '1.5rem'
+                  }}
+                >
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 15V17M6 21H18C19.1046 21 20 20.1046 20 19V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7V19C4 20.1046 4.89543 21 6 21Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M16 5V3C16 2.44772 15.5523 2 15 2H9C8.44772 2 8 2.44772 8 3V5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <h5
+                  style={{
+                    fontFamily: 'Lora, serif',
+                    fontWeight: '600',
+                    color: '#2c3e50',
+                    marginBottom: '1rem'
+                  }}
+                >
+                  Role-Based Access
+                </h5>
+                <p style={{ color: '#6c757d', fontSize: '0.95rem', lineHeight: '1.5' }}>
+                  Granular permissions with separate interfaces for administrators and clients
+                </p>
+              </div>
+            </Col>
+
+            <Col md={6} lg={3} className="mb-4">
+              <div
+                style={{
+                  backgroundColor: '#f8f9fa',
+                  borderRadius: '15px',
+                  padding: '2rem',
+                  textAlign: 'center',
+                  height: '100%',
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.transform = 'translateY(-5px)';
+                  e.target.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = 'none';
+                }}
+              >
+                <div
+                  style={{
+                    width: '60px',
+                    height: '60px',
+                    backgroundColor: '#f39c12',
+                    borderRadius: '50%',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '1.5rem'
+                  }}
+                >
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M2 17L12 22L22 17" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <h5
+                  style={{
+                    fontFamily: 'Lora, serif',
+                    fontWeight: '600',
+                    color: '#2c3e50',
+                    marginBottom: '1rem'
+                  }}
+                >
+                  Microservices
+                </h5>
+                <p style={{ color: '#6c757d', fontSize: '0.95rem', lineHeight: '1.5' }}>
+                  Scalable architecture with independent services communicating via secure APIs
+                </p>
+              </div>
             </Col>
           </Row>
         </Container>
-      )}
+      </section>
 
       {/* Footer */}
-      <footer className="bg-dark text-white py-4 mt-5">
+      <footer style={{ backgroundColor: '#2c3e50', color: 'white', padding: '40px 0' }}>
         <Container>
-          <Row>
-            <Col className="text-center">
-              <p className="mb-0">
-                🏗️ Architecture Micro-services Sécurisée - Projet DevSecOps
+          <Row className="text-center">
+            <Col>
+              <h4
+                style={{
+                  fontFamily: 'Lora, serif',
+                  fontWeight: '600',
+                  marginBottom: '1rem'
+                }}
+              >
+                Microservices E-commerce Platform
+              </h4>
+              <p style={{ opacity: '0.8', fontSize: '0.95rem', lineHeight: '1.6' }}>
+                Built with Spring Boot, React, and Keycloak for enterprise-grade security and performance.
+                <br />
+                Advanced DevSecOps practices ensure reliability and security at scale.
               </p>
-              <small className="text-muted">
-                Application e-commerce moderne avec Spring Boot, React et Keycloak
+              <hr style={{ borderColor: 'rgba(255,255,255,0.2)', margin: '2rem 0' }} />
+              <small style={{ opacity: '0.6' }}>
+                © 2024 Secure Microservices E-commerce. All rights reserved.
               </small>
             </Col>
           </Row>

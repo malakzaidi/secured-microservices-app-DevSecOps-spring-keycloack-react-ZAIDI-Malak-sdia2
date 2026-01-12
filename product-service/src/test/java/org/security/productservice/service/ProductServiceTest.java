@@ -11,6 +11,7 @@ import org.security.productservice.model.Product;
 import org.security.productservice.repository.ProductRepository;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -38,13 +39,13 @@ class ProductServiceTest {
         testProduct.setId(1L);
         testProduct.setName("Test Product");
         testProduct.setDescription("Test Description");
-        testProduct.setPrice(99.99);
+        testProduct.setPrice(BigDecimal.valueOf(99.99));
         testProduct.setStockQuantity(10);
 
         testProductDTO = new ProductDTO();
         testProductDTO.setName("Test Product");
         testProductDTO.setDescription("Test Description");
-        testProductDTO.setPrice(99.99);
+        testProductDTO.setPrice(BigDecimal.valueOf(99.99));
         testProductDTO.setStockQuantity(10);
     }
 
@@ -94,7 +95,7 @@ class ProductServiceTest {
         savedProduct.setId(1L);
         savedProduct.setName("Test Product");
         savedProduct.setDescription("Test Description");
-        savedProduct.setPrice(99.99);
+        savedProduct.setPrice(BigDecimal.valueOf(99.99));
         savedProduct.setStockQuantity(10);
 
         when(productRepository.save(any(Product.class))).thenReturn(savedProduct);
@@ -115,14 +116,14 @@ class ProductServiceTest {
         existingProduct.setId(1L);
         existingProduct.setName("Old Name");
         existingProduct.setDescription("Old Description");
-        existingProduct.setPrice(50.00);
+        existingProduct.setPrice(BigDecimal.valueOf(50.00));
         existingProduct.setStockQuantity(5);
 
         Product updatedProduct = new Product();
         updatedProduct.setId(1L);
         updatedProduct.setName("Updated Product");
         updatedProduct.setDescription("Updated Description");
-        updatedProduct.setPrice(99.99);
+        updatedProduct.setPrice(BigDecimal.valueOf(99.99));
         updatedProduct.setStockQuantity(10);
 
         when(productRepository.findById(1L)).thenReturn(Optional.of(existingProduct));

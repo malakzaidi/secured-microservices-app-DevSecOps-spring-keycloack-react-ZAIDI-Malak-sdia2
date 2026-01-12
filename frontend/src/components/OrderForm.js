@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Container, Button, Card, Row, Col, Badge, Alert, Spinner, Modal, InputGroup, Form, Toast, ToastContainer, ProgressBar } from 'react-bootstrap';
-
-const API_BASE_URL = 'http://localhost:8087/api';
+import api from '../api';
+import { Container, Button, Card, Row, Col, Badge, Alert, Spinner, Modal, InputGroup, Form, ToastContainer, Toast } from 'react-bootstrap';
 
 function OrderForm() {
   const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -21,24 +18,22 @@ function OrderForm() {
     fetchProducts();
   }, []);
 
-  useEffect(() => {
-    // Filter products based on search term
-    const filtered = products.filter(product =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.description.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredProducts(filtered);
-  }, [products, searchTerm]);
+  // Filter products based on search term
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    product.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const showToastMessage = (message) => {
     setToastMessage(message);
     setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
   };
 
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${API_BASE_URL}/products`);
+      const response = await api.get('/products');
       setProducts(response.data.filter(p => p.stockQuantity > 0)); // Only show products in stock
       setError(null);
     } catch (err) {
@@ -118,7 +113,7 @@ function OrderForm() {
         }))
       };
 
-      const response = await axios.post(`${API_BASE_URL}/orders`, orderRequest);
+      const response = await api.post('/orders', orderRequest);
       setCreatedOrder(response.data);
       setShowSuccessModal(true);
       setSelectedItems([]); // Clear the order
@@ -143,7 +138,7 @@ function OrderForm() {
   }
 
   return (
-    <Container fluid className="py-4" style={{ background: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)', minHeight: '100vh' }}>
+    <Container fluid className="py-4" style={{ background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)', minHeight: '100vh', color: '#2c3e50' }}>
       <Container>
         {/* Header Section */}
         <div className="text-center mb-5">
