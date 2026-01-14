@@ -29,6 +29,47 @@ L'architecture de l'application est composée des éléments suivants :
 ![Service Discovery Dashboard](captures/discovery-service.png)
 
 *Figure 18: Tableau de bord Eureka montrant l'enregistrement des micro-services*
+
+#### Panel d'Administration
+![Panel Administration](captures/AdminPanel.png)
+
+*Figure 19: Interface du panel d'administration pour la gestion des produits et commandes*
+
+#### Contexte du Projet
+![Contexte Projet](captures/contexte-du-projet.png)
+
+*Figure 20: Vue d'ensemble du contexte et des objectifs du projet micro-services sécurisé*
+
+#### Connexion Client
+![Connexion Client](captures/connexion-client.png)
+
+*Figure 21: Page de connexion pour les utilisateurs clients via Keycloak*
+
+#### Connexion Administrateur Keycloak
+![Connexion Admin Keycloak](captures/connexion-keylock-admin.png)
+
+*Figure 22: Interface de connexion administrateur à la console Keycloak*
+
+#### Création d'un Produit par l'Admin
+![Création Produit Admin](captures/Create-product-admin.png)
+
+*Figure 23: Interface d'administration pour la création d'un nouveau produit*
+
+#### Catalogue Produits Admin
+![Catalogue Produits Admin](captures/product-catalog-admin.png)
+
+*Figure 24: Vue du catalogue des produits depuis l'interface d'administration*
+
+#### Création de Commande Client
+![Création Commande Client](captures/crearte-order-client.png)
+
+*Figure 25: Processus de création d'une commande depuis l'interface client*
+
+#### Résumé de Commande
+![Résumé Commande](captures/order-summary.png)
+
+*Figure 26: Affichage du résumé détaillé d'une commande créée*
+
 - **Micro-service Produit** : Gestion complète du catalogue produits avec CRUD sécurisé
 - **Micro-service Commande** : Gestion des commandes clients avec validation métier
 - **Keycloak** : Serveur d'authentification et d'autorisation OAuth2/OIDC centralisé
@@ -573,6 +614,16 @@ Script `devsecops/run-devsecops.sh` exécute le pipeline complet :
 - **Code Quality** : Note A sur SonarQube
 - **Security Headers** : Configuration complète
 
+#### Fonctionnalités DevSecOps Spécifiques Implémentées
+
+- **Analyse Automatisée des Dépendances** : OWASP Dependency-Check intégré pour scanner les vulnérabilités dans les bibliothèques Maven, générant des rapports détaillés sur les CVE identifiées.
+- **Analyse Statique du Code** : SonarQube configuré pour analyser la qualité du code, détecter les bugs, code smells, et mesurer la couverture de tests avec une cible de note A.
+- **Tests Unitaires et d'Intégration** : Suite complète de tests avec JUnit 5 et Mockito, couvrant contrôleurs REST, services métier, et communication inter-services sécurisée.
+- **Scan de Sécurité des Conteneurs** : Trivy utilisé pour analyser les images Docker et identifier les vulnérabilités au niveau système d'exploitation.
+- **Pipeline CI/CD Sécurisé** : Script automatisé `run-devsecops.sh` exécutant l'ensemble des vérifications de sécurité avant déploiement.
+- **Gestion Sécurisée des Secrets** : Utilisation exclusive de variables d'environnement et certificats pour éviter l'exposition des clés API et mots de passe.
+- **Logging et Traçabilité** : Journalisation structurée JSON pour monitoring et audit des opérations utilisateur.
+
 ## 12. Journalisation et Traçabilité
 
 Journalisation complète pour le debugging et la surveillance.
@@ -611,6 +662,29 @@ Journalisation complète pour le debugging et la surveillance.
 - **Session** : Correlation via JWT
 - **Actions** : Historique complet des opérations
 - **Erreurs** : Contexte complet pour debugging
+
+## Réalisations Clés en Sécurité, Tests et DevSecOps
+
+Ce projet démontre une implémentation complète des meilleures pratiques en matière de sécurité, tests automatisés, et DevSecOps dans une architecture micro-services :
+
+### Sécurité
+- **Authentification Centralisée** : Keycloak avec OAuth2/OIDC pour gestion des utilisateurs et rôles (ADMIN/CLIENT).
+- **Autorisation Fine-Grained** : RBAC appliqué à chaque endpoint, propagation JWT inter-services.
+- **Communication Sécurisée** : mTLS entre services avec certificats auto-générés, HTTPS obligatoire.
+- **Protection des Données** : Isolation des bases de données, comptes dédiés, pas de partage direct.
+
+### Tests
+- **Couverture Complète** : Tests unitaires (contrôleurs, services, repositories) et d'intégration (communication inter-services).
+- **Outils Modernes** : JUnit 5, Mockito, JaCoCo pour couverture >80%.
+- **Tests de Sécurité** : Validation des autorisations et gestion des erreurs d'authentification.
+
+### DevSecOps
+- **Pipeline Automatisé** : Analyse des dépendances (OWASP), qualité du code (SonarQube), scan conteneurs (Trivy).
+- **Intégration Continue** : Scripts bash pour exécution complète des vérifications avant déploiement.
+- **Zéro Vulnérabilité Critique** : Corrections appliquées basées sur les rapports générés.
+- **Observabilité** : Logs structurés, métriques, et rapports de sécurité consolidés.
+
+Ces réalisations assurent un niveau de maturité élevé pour le déploiement en production avec sécurité renforcée et maintenabilité.
 
 ## Prérequis
 
@@ -834,6 +908,13 @@ Les rapports sont générés dans le répertoire `reports/`.
 - Suivre le principe du moindre privilège
 
 ### Tests
+
+Le projet maintient une couverture de tests supérieure à 80% avec JaCoCo. Les tests incluent :
+
+- **Tests Unitaires** : Validation des contrôleurs REST, services métier, et repositories avec Mockito pour le mocking des dépendances.
+- **Tests d'Intégration** : Validation de la communication inter-services, propagation JWT, et appels API sécurisés.
+- **Tests de Sécurité** : Vérification des autorisations par rôle et gestion des erreurs d'authentification.
+
 ```bash
 # Exécuter tous les tests
 mvn test
