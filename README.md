@@ -12,49 +12,65 @@ L'application implémente une architecture de micro-services avec authentificati
 
 L'architecture de l'application est composée des éléments suivants :
 
-```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Frontend      │    │   API Gateway   │    │  Service        │
-│   (React)       │────►│   (Spring      │◄──►│  Discovery      │
-│                 │    │   Cloud Gateway)│    │  (Eureka)      │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-                              │
-                              ▼
-                 ┌────────────┼────────────┐
-                 │            │            │
-        ┌────────▼────────┐  ┌▼──────────┐ │
-        │ Product Service │  │ Command   │ │
-        │   (Spring Boot) │  │ Service   │ │
-        └─────────────────┘  └───────────┘ │
-                 │                 │       │
-                 ▼                 ▼       │
-        ┌─────────────────┐  ┌────────────▼┐
-        │ Product DB      │  │ Order DB    │
-        │ (PostgreSQL)    │  │ (PostgreSQL)│
-        └─────────────────┘  └─────────────┘
+### Diagramme d'Architecture Globale
 
-┌─────────────────┐
-│   Keycloak      │
-│   (Auth/OIDC)   │
-└─────────────────┘
-```
+![Architecture Globale](captures/architecture-globale.png)
 
-### Composants Principaux
+*Figure 1: Vue d'ensemble de l'architecture micro-services avec tous les composants interconnectés*
+
+### Composants Principaux Détaillés
 
 - **Frontend Web (React)** : Interface utilisateur sécurisée avec authentification Keycloak
-- **API Gateway** : Point d'entrée unique, routage et sécurité centralisée
-- **Service Discovery (Eureka)** : Enregistrement et découverte dynamique des services
-- **Micro-service Produit** : Gestion du catalogue produits
-- **Micro-service Commande** : Gestion des commandes clients
-- **Keycloak** : Serveur d'authentification et d'autorisation OAuth2/OIDC
-- **Bases de données** : PostgreSQL distinctes pour chaque domaine métier
+- **API Gateway (Spring Cloud Gateway)** : Point d'entrée unique, routage intelligent et sécurité centralisée
+- **Service Discovery (Netflix Eureka)** : Enregistrement et découverte dynamique des micro-services
 
-### Contraintes Architecturales
+### Tableau de Bord Eureka
 
-- **Accès direct interdit** : Toutes les requêtes frontend doivent transiter par l'API Gateway
-- **Services indépendants** : Aucun couplage direct entre micro-services
-- **Sécurité de bout en bout** : Authentification et autorisation sur tous les niveaux
-- **Communication sécurisée** : mTLS entre services, JWT propagé
+![Service Discovery Dashboard](captures/discovery-service.png)
+
+*Figure 18: Tableau de bord Eureka montrant l'enregistrement des micro-services*
+- **Micro-service Produit** : Gestion complète du catalogue produits avec CRUD sécurisé
+- **Micro-service Commande** : Gestion des commandes clients avec validation métier
+- **Keycloak** : Serveur d'authentification et d'autorisation OAuth2/OIDC centralisé
+- **Bases de données PostgreSQL** : Bases distinctes pour isolation des données par domaine
+
+### Flux de Communication
+
+```
+Frontend (React) → API Gateway → Micro-services → Bases de données
+      ↓              ↓              ↓              ↓
+   Keycloak       JWT Validation    Business Logic   Persistence
+   (Auth)         (Security)        (Domain)         (Data)
+```
+
+### Contraintes Architecturales Strictes
+
+- **Accès direct interdit** : Toutes les requêtes frontend doivent obligatoirement transiter par l'API Gateway
+- **Services indépendants** : Aucun couplage direct entre micro-services (Product ↔ Command)
+- **Sécurité de bout en bout** : Authentification et autorisation appliquées à chaque niveau
+- **Communication sécurisée** : mTLS entre services, propagation du JWT utilisateur
+- **Isolation des données** : Bases de données séparées avec comptes d'accès dédiés
+
+### Diagramme de Séquence
+
+![Diagramme de Séquence](captures/diagramme-sequence.png)
+
+*Figure 2: Diagramme de séquence montrant le flux complet d'une commande depuis le frontend jusqu'à la persistance*
+
+Le diagramme de séquence illustre le processus complet :
+1. **Authentification** : Utilisateur se connecte via Keycloak
+2. **Création de commande** : Frontend envoie la requête via Gateway
+3. **Validation métier** : Service Commande valide le stock via Service Produit
+4. **Persistance** : Données sauvegardées dans les bases respectives
+5. **Confirmation** : Réponse sécurisée renvoyée au frontend
+
+### Avantages de l'Architecture
+
+- **Scalabilité horizontale** : Services peuvent être déployés indépendamment
+- **Résilience** : Un service défaillant n'impacte pas les autres
+- **Sécurité renforcée** : Authentification centralisée et communication chiffrée
+- **Maintenance facilitée** : Évolution indépendante de chaque service
+- **Observabilité** : Logs et métriques par service
 
 ## 3. Frontend Web (React)
 
@@ -75,31 +91,63 @@ Le frontend React fournit une interface utilisateur sécurisée et adaptée aux 
 
 ### Technologies Frontend
 
-- **React 18** : Framework UI moderne
-- **Keycloak JS** : Bibliothèque d'authentification client
-- **React Router** : Navigation SPA
-- **Bootstrap 5** : Framework CSS responsive
-- **Axios** : Client HTTP pour les appels API
+- **React 18** : Framework UI moderne avec hooks
+- **Keycloak JS** : Bibliothèque d'authentification client OAuth2/OIDC
+- **React Router** : Navigation Single Page Application
+- **Bootstrap 5** : Framework CSS responsive et mobile-first
+- **Axios** : Client HTTP avec intercepteurs pour JWT
 
-### Structure Frontend
+### Interfaces Utilisateur
+
+#### Interface d'Accueil et Catalogue
+![Interface Accueil](captures/interface1.png)
+
+*Figure 3: Interface principale montrant le catalogue des produits avec navigation et authentification*
+
+#### Interface de Gestion des Commandes
+![Interface Commandes](captures/interface2.png)
+
+*Figure 4: Interface de gestion des commandes avec formulaire de création et liste des commandes*
+
+### Structure Frontend Détaillée
 
 ```
 frontend/
 ├── public/
-│   ├── index.html
-│   ├── manifest.json
-│   └── silent-check-sso.html
+│   ├── index.html           # Point d'entrée React
+│   ├── manifest.json        # Configuration PWA
+│   └── silent-check-sso.html # Refresh token silencieux
 ├── src/
 │   ├── components/
-│   │   ├── AdminPanel.js
-│   │   ├── HomePage.js
-│   │   ├── OrderForm.js
-│   │   ├── OrderList.js
-│   │   └── ProductList.js
-│   ├── api.js
-│   ├── App.js
-│   └── index.js
-└── package.json
+│   │   ├── AdminPanel.js    # Panel administration (ADMIN)
+│   │   ├── HomePage.js      # Page d'accueil catalogue
+│   │   ├── OrderForm.js     # Formulaire création commande
+│   │   ├── OrderList.js     # Liste commandes utilisateur
+│   │   └── ProductList.js   # Grille produits avec filtres
+│   ├── api.js              # Configuration Axios + Keycloak
+│   ├── App.js              # Composant principal avec routes
+│   └── index.js            # Point d'entrée ReactDOM
+├── .env                    # Variables environnement (Keycloak URLs)
+└── package.json            # Dépendances et scripts
+```
+
+### Gestion des États et Authentification
+
+```javascript
+// Configuration Keycloak dans api.js
+const keycloak = new Keycloak({
+    url: process.env.REACT_APP_KEYCLOAK_URL,
+    realm: 'microservices-realm',
+    clientId: 'microservices-client'
+});
+
+// Intercepteur Axios pour JWT
+axios.interceptors.request.use(config => {
+    if (keycloak.token) {
+        config.headers.Authorization = `Bearer ${keycloak.token}`;
+    }
+    return config;
+});
 ```
 
 ## 4. Micro-service Produit (Spring Boot)
@@ -190,12 +238,18 @@ La communication entre micro-services respecte les principes REST et sécurité.
 
 ### Principes de Communication
 
-- **Communication REST** : HTTP/HTTPS entre services
-- **Propagation du Token JWT** : Token utilisateur transmis dans les headers
+- **Communication REST** : HTTP/HTTPS entre services avec Spring RestTemplate
+- **Propagation du Token JWT** : Token utilisateur transmis dans les headers Authorization
 - **Gestion d'Erreurs Métier** :
-  - Produit inexistant (404)
-  - Stock insuffisant (409)
-  - Erreurs de validation (400)
+  - Produit inexistant (404 Not Found)
+  - Stock insuffisant (409 Conflict)
+  - Erreurs de validation (400 Bad Request)
+
+### Gestion des Dépendances Inter-Services
+
+![Circuit Breaker Dependencies](captures/circuit-breaker-dependance.png)
+
+*Figure 17: Gestion des dépendances et circuit breaker pour la résilience inter-services*
 
 ### Exemple de Communication
 
@@ -230,35 +284,88 @@ ProductDTO product = restTemplate.exchange(
 
 La sécurité constitue un axe central du projet et est entièrement gérée par Keycloak.
 
-### Rôles et Autorisations
+### Configuration Keycloak Détaillée
 
-- **ADMIN** : Accès complet à la gestion produits et commandes
-- **CLIENT** : Accès limité aux consultations et création de commandes
+#### 1. Création du Realm
+![Configuration Realm Keycloak](captures/keyclock-realm.png)
 
-### Configuration Keycloak
+*Figure 7: Configuration du realm "microservices-realm" dans Keycloak*
 
-- **Realm** : `microservices-realm`
+- **Realm Name** : `microservices-realm`
+- **Display Name** : Microservices E-commerce Realm
+- **Enabled** : Activé
+
+#### 2. Création d'un Utilisateur
+![Création Utilisateur](captures/create-user.keyclock.png)
+
+*Figure 8: Création d'un utilisateur avec credentials et rôles*
+
+Configuration utilisateur :
+- **Username** : admin / client_user
+- **Email** : requis pour la validation
+- **First Name / Last Name** : Informations personnelles
+- **Credentials** : Mot de passe temporaire
+
+#### 3. Attribution des Rôles
+![Assignation Rôles](captures/assign-role-keyclock.png)
+
+*Figure 9: Attribution des rôles ADMIN ou CLIENT aux utilisateurs*
+
+Rôles disponibles :
+- **ADMIN** : Accès complet CRUD produits + gestion commandes
+- **CLIENT** : Lecture produits + gestion commandes personnelles
+
+### Configuration Technique Keycloak
+
 - **Client ID** : `microservices-client`
-- **Grant Type** : Authorization Code + PKCE
+- **Client Type** : OpenID Connect
+- **Grant Types** : Authorization Code, Refresh Token
 - **Redirect URIs** : `http://localhost:3000/*`
+- **Web Origins** : `http://localhost:3000`
 
-### Authentification Frontend
+### Authentification Frontend avec Keycloak JS
 
 ```javascript
-// Exemple d'intégration Keycloak JS
-const keycloak = new Keycloak({
+// Configuration complète Keycloak
+const keycloakConfig = {
     url: 'http://localhost:8180',
     realm: 'microservices-realm',
-    clientId: 'microservices-client'
-});
+    clientId: 'microservices-client',
+    onLoad: 'login-required',
+    checkLoginIframe: false,
+    pkceMethod: 'S256'  // PKCE pour sécurité renforcée
+};
 
+const keycloak = new Keycloak(keycloakConfig);
+
+// Initialisation avec gestion d'erreurs
 keycloak.init({ onLoad: 'login-required' })
     .then(authenticated => {
         if (authenticated) {
-            // Token disponible dans keycloak.token
-            axios.defaults.headers.common['Authorization'] = `Bearer ${keycloak.token}`;
+            console.log('Utilisateur authentifié:', keycloak.tokenParsed.preferred_username);
+            console.log('Rôles:', keycloak.tokenParsed.realm_access.roles);
+
+            // Configuration Axios avec token
+            setupAxiosInterceptors(keycloak);
+        } else {
+            console.log('Authentification requise');
         }
+    })
+    .catch(error => {
+        console.error('Erreur Keycloak:', error);
     });
+
+// Gestion du refresh token
+keycloak.onTokenExpired = () => {
+    keycloak.updateToken(70).then(refreshed => {
+        if (refreshed) {
+            console.log('Token rafraîchi');
+        }
+    }).catch(() => {
+        console.log('Échec du refresh, redirection login');
+        keycloak.login();
+    });
+};
 ```
 
 ### Autorisation Backend
@@ -413,24 +520,44 @@ Le projet intègre une démarche DevSecOps complète.
 
 ### Outils de Sécurité
 
-- **OWASP Dependency-Check** : Analyse des vulnérabilités dans les dépendances
-- **SonarQube** : Analyse statique du code, détection des code smells
+- **OWASP Dependency-Check** : Analyse des vulnérabilités dans les dépendances Maven
+- **SonarQube** : Analyse statique du code, détection des code smells et bugs
 - **Trivy** : Scanning des vulnérabilités dans les images Docker
-- **Tests Unitaires** : Couverture de code avec JaCoCo
+- **Tests Unitaires** : Couverture de code automatisée avec JaCoCo
 
-### Pipeline DevSecOps
+### Installation des Outils DevSecOps
 
-Script automatisé `devsecops/run-devsecops.sh` :
+![Installation DevSecOps](captures/installation-devsecops-dependences.png)
+
+*Figure 12: Installation des dépendances DevSecOps (SonarQube, Trivy, OWASP Dependency-Check)*
+
+### Pipeline DevSecOps Automatisé
+
+Script `devsecops/run-devsecops.sh` exécute le pipeline complet :
 
 ```bash
 #!/bin/bash
-# 1. Analyse des dépendances (OWASP)
-# 2. Build et tests
-# 3. Analyse SonarQube
+# 1. Analyse des dépendances (OWASP Dependency-Check)
+# 2. Build et exécution des tests unitaires
+# 3. Analyse SonarQube du code
 # 4. Build des images Docker
-# 5. Scan des images (Trivy)
-# 6. Génération rapport de sécurité
+# 5. Scan des vulnérabilités (Trivy)
+# 6. Génération du rapport de sécurité consolidé
 ```
+
+### Résultats des Tests
+
+#### Tests Unitaires Maven
+![Tests Maven 1](captures/mvntest.png)
+![Tests Maven 2](captures/mvntest2.png)
+
+*Figure 13-14: Exécution réussie des tests unitaires avec couverture JaCoCo*
+
+#### Vérification Maven
+![Vérification Maven 1](captures/mvnverify.png)
+![Vérification Maven 2](captures/mvnverify2.png)
+
+*Figure 15-16: Vérification complète Maven incluant tests d'intégration et qualité*
 
 ### Corrections Appliquées
 
@@ -510,11 +637,19 @@ cd security-of-ds-project
 ls -la certificates/
 ```
 
+![Création des Certificats](captures/creation-des-certificats.png)
+
+*Figure 10: Processus de génération des certificats SSL pour mTLS*
+
 ### 3. Démarrage des Services d'Infrastructure
 ```bash
 # Démarrage des bases de données et Keycloak
-docker-compose up -d postgres-product postgres-order keycloak
+docker compose up -d postgres-product postgres-order keycloak
 ```
+
+![Démarrage Docker](captures/demarrage-docker.png)
+
+*Figure 11: Démarrage réussi des conteneurs Docker avec bases de données et Keycloak*
 
 ### 4. Configuration Keycloak
 Keycloak est initialisé automatiquement via le script `keycloak-init.sh`.
@@ -580,24 +715,64 @@ mvn spring-boot:run
 
 ## Documentation API
 
-Chaque service expose une documentation OpenAPI/Swagger :
+Chaque service expose une documentation OpenAPI/Swagger interactive et complète :
 
-- **Service Produit** : `GET /api/products` - Gestion du catalogue
-- **Service Commande** : `POST /api/orders` - Traitement des commandes
-- **API Gateway** : Route toutes les requêtes `/api/**` vers les services appropriés
+### Service Produit - Documentation Swagger
+![Swagger Produit](captures/swagger-documentation-product-service.png)
 
-Exemples d'appels API :
+*Figure 5: Documentation Swagger du micro-service Produit avec tous les endpoints CRUD*
+
+Endpoints disponibles :
+- `GET /api/products` - Lister tous les produits (ADMIN, CLIENT)
+- `GET /api/products/{id}` - Détail d'un produit (ADMIN, CLIENT)
+- `POST /api/products` - Créer un produit (ADMIN uniquement)
+- `PUT /api/products/{id}` - Modifier un produit (ADMIN uniquement)
+- `DELETE /api/products/{id}` - Supprimer un produit (ADMIN uniquement)
+
+### Service Commande - Documentation Swagger
+![Swagger Commande](captures/swagger-documentation-command-service.png)
+
+*Figure 6: Documentation Swagger du micro-service Commande avec gestion des commandes*
+
+Endpoints disponibles :
+- `GET /api/orders` - Lister ses commandes (CLIENT) / Toutes (ADMIN)
+- `GET /api/orders/{id}` - Détail d'une commande (propriétaire ou ADMIN)
+- `POST /api/orders` - Créer une nouvelle commande (CLIENT)
+
+### API Gateway
+
+Le Gateway route toutes les requêtes `/api/**` vers les services appropriés avec :
+- Validation automatique des tokens JWT
+- Routage basé sur les chemins d'URL
+- Centralisation des règles de sécurité
+
+### Exemples d'Appels API Sécurisés
+
 ```bash
-# Récupérer les produits
-curl -H "Authorization: Bearer <jwt-token>" \
+# Récupérer le token JWT depuis Keycloak
+TOKEN=$(curl -X POST http://localhost:8180/realms/microservices-realm/protocol/openid-connect/token \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "grant_type=password&client_id=microservices-client&username=user&password=password" \
+  | jq -r '.access_token')
+
+# Récupérer les produits avec authentification
+curl -H "Authorization: Bearer $TOKEN" \
      http://localhost:8087/api/products
 
-# Créer une commande
-curl -X POST -H "Authorization: Bearer <jwt-token>" \
+# Créer une commande avec authentification
+curl -X POST -H "Authorization: Bearer $TOKEN" \
      -H "Content-Type: application/json" \
      -d '{"items":[{"productId":1,"quantity":2}]}' \
      http://localhost:8087/api/orders
 ```
+
+### Gestion des Erreurs API
+
+- **401 Unauthorized** : Token manquant ou invalide
+- **403 Forbidden** : Permissions insuffisantes (rôle incorrect)
+- **409 Conflict** : Stock insuffisant pour la commande
+- **404 Not Found** : Ressource inexistante
+- **400 Bad Request** : Données invalides
 
 ## Configuration
 
