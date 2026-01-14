@@ -2,6 +2,9 @@
 
 **Spring Boot – React – Keycloak**
 
+<img width="1046" height="1088" alt="image" src="https://github.com/user-attachments/assets/ffda5c04-076a-4ec0-9055-1b9b9246c421" />
+
+
 ## Table des Matières
 
 1. [Contexte du Projet](#1-contexte-du-projet)
