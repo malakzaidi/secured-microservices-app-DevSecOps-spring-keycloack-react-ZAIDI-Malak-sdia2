@@ -966,30 +966,3 @@ Les logs applicatifs sont écrits dans le répertoire `logs/` :
 3. Commiter vos changements (`git commit -m 'Add some amazing feature'`)
 4. Push vers la branche (`git push origin feature/amazing-feature`)
 5. Ouvrir une Pull Request
-
-### Directives de Contribution
-- S'assurer que tous les tests passent
-- Exécuter le pipeline DevSecOps avant soumission
-- Mettre à jour la documentation pour les nouvelles fonctionnalités
-- Suivre le style de code existant
-
-## Licence
-
-Ce projet est sous licence MIT - voir le fichier LICENSE pour plus de détails.
-
-## Support
-
-Pour les questions ou problèmes :
-- Ouvrir une issue sur GitHub
-- Vérifier les rapports DevSecOps pour les problèmes de sécurité
-- Examiner les logs des services pour le dépannage
-
-## Améliorations Futures
-
-- Implémentation complète du Config Service
-- Ajout d'un service mesh (Istio)
-- Implémentation du tracing distribué (Jaeger)
-- Ajout de monitoring et alertes (Prometheus/Grafana)
-- Implémentation de rate limiting API
-- Ajout de tests end-to-end
-- Orchestration de conteneurs avec Kubernetes
