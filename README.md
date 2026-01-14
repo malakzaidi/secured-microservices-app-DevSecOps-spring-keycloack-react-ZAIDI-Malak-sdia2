@@ -25,9 +25,6 @@
 19. [Pipeline DevSecOps](#pipeline-devsecops)
 20. [Directives de Développement](#directives-de-développement)
 21. [Contribution](#contribution)
-22. [Licence](#licence)
-23. [Support](#support)
-24. [Améliorations Futures](#améliorations-futures)
 
 ## 1. Contexte du Projet
 
