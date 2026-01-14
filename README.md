@@ -2,6 +2,33 @@
 
 **Spring Boot – React – Keycloak**
 
+## Table des Matières
+
+1. [Contexte du Projet](#1-contexte-du-projet)
+2. [Architecture Générale Attendue](#2-architecture-générale-attendue)
+3. [Frontend Web (React)](#3-frontend-web-react)
+4. [Micro-service Produit (Spring Boot)](#4-micro-service-produit-spring-boot)
+5. [Micro-service Commande (Spring Boot)](#5-micro-service-commande-spring-boot)
+6. [Communication Inter-Services](#6-communication-inter-services)
+7. [Sécurité avec Keycloak (Obligatoire)](#7-sécurité-avec-keycloak-obligatoire)
+8. [API Gateway (Spring Cloud Gateway)](#8-api-gateway-spring-cloud-gateway)
+9. [Gestion des Données](#9-gestion-des-données)
+10. [Conteneurisation (Docker)](#10-conteneurisation-docker)
+11. [DevSecOps (Obligatoire)](#11-devsecops-obligatoire)
+12. [Journalisation et Traçabilité](#12-journalisation-et-traçabilité)
+13. [Réalisations Clés en Sécurité, Tests et DevSecOps](#réalisations-clés-en-sécurité-tests-et-devsecops)
+14. [Prérequis](#prérequis)
+15. [Installation et Configuration](#installation-et-configuration)
+16. [Exécution de l'Application](#exécution-de-lapplication)
+17. [Documentation API](#documentation-api)
+18. [Configuration](#configuration)
+19. [Pipeline DevSecOps](#pipeline-devsecops)
+20. [Directives de Développement](#directives-de-développement)
+21. [Contribution](#contribution)
+22. [Licence](#licence)
+23. [Support](#support)
+24. [Améliorations Futures](#améliorations-futures)
+
 ## 1. Contexte du Projet
 
 Ce mini-projet a pour objectif de concevoir et développer une application web moderne basée sur une architecture micro-services sécurisée. L'application permettra la gestion des produits et des commandes d'une entreprise, tout en respectant les standards industriels en matière de sécurité, modularité, conteneurisation et DevSecOps.
