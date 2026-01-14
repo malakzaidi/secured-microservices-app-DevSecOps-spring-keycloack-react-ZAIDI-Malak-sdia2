@@ -8,6 +8,10 @@ Ce mini-projet a pour objectif de concevoir et développer une application web m
 
 L'application implémente une architecture de micro-services avec authentification centralisée via Keycloak, communication sécurisée entre services, et une approche DevSecOps complète incluant analyse statique, scanning des vulnérabilités et tests automatisés.
 
+![Contexte du Projet](captures/contexte-du-projet.png)
+
+*Figure 1: Vue d'ensemble du contexte et des objectifs du projet micro-services sécurisé*
+
 ## 2. Architecture Générale Attendue
 
 L'architecture de l'application est composée des éléments suivants :
@@ -16,7 +20,7 @@ L'architecture de l'application est composée des éléments suivants :
 
 ![Architecture Globale](captures/architecture-globale.png)
 
-*Figure 1: Vue d'ensemble de l'architecture micro-services avec tous les composants interconnectés*
+*Figure 2: Vue d'ensemble de l'architecture micro-services avec tous les composants interconnectés*
 
 ### Composants Principaux Détaillés
 
@@ -28,47 +32,7 @@ L'architecture de l'application est composée des éléments suivants :
 
 ![Service Discovery Dashboard](captures/discovery-service.png)
 
-*Figure 18: Tableau de bord Eureka montrant l'enregistrement des micro-services*
-
-#### Panel d'Administration
-![Panel Administration](captures/AdminPanel.png)
-
-*Figure 19: Interface du panel d'administration pour la gestion des produits et commandes*
-
-#### Contexte du Projet
-![Contexte Projet](captures/contexte-du-projet.png)
-
-*Figure 20: Vue d'ensemble du contexte et des objectifs du projet micro-services sécurisé*
-
-#### Connexion Client
-![Connexion Client](captures/connexion-client.png)
-
-*Figure 21: Page de connexion pour les utilisateurs clients via Keycloak*
-
-#### Connexion Administrateur Keycloak
-![Connexion Admin Keycloak](captures/connexion-keylock-admin.png)
-
-*Figure 22: Interface de connexion administrateur à la console Keycloak*
-
-#### Création d'un Produit par l'Admin
-![Création Produit Admin](captures/Create-product-admin.png)
-
-*Figure 23: Interface d'administration pour la création d'un nouveau produit*
-
-#### Catalogue Produits Admin
-![Catalogue Produits Admin](captures/product-catalog-admin.png)
-
-*Figure 24: Vue du catalogue des produits depuis l'interface d'administration*
-
-#### Création de Commande Client
-![Création Commande Client](captures/crearte-order-client.png)
-
-*Figure 25: Processus de création d'une commande depuis l'interface client*
-
-#### Résumé de Commande
-![Résumé Commande](captures/order-summary.png)
-
-*Figure 26: Affichage du résumé détaillé d'une commande créée*
+*Figure 26: Tableau de bord Eureka montrant l'enregistrement des micro-services*
 
 - **Micro-service Produit** : Gestion complète du catalogue produits avec CRUD sécurisé
 - **Micro-service Commande** : Gestion des commandes clients avec validation métier
@@ -96,7 +60,7 @@ Frontend (React) → API Gateway → Micro-services → Bases de données
 
 ![Diagramme de Séquence](captures/diagramme-sequence.png)
 
-*Figure 2: Diagramme de séquence montrant le flux complet d'une commande depuis le frontend jusqu'à la persistance*
+*Figure 3: Diagramme de séquence montrant le flux complet d'une commande depuis le frontend jusqu'à la persistance*
 
 Le diagramme de séquence illustre le processus complet :
 1. **Authentification** : Utilisateur se connecte via Keycloak
@@ -143,12 +107,47 @@ Le frontend React fournit une interface utilisateur sécurisée et adaptée aux 
 #### Interface d'Accueil et Catalogue
 ![Interface Accueil](captures/interface1.png)
 
-*Figure 3: Interface principale montrant le catalogue des produits avec navigation et authentification*
+*Figure 4: Interface principale montrant le catalogue des produits avec navigation et authentification*
 
 #### Interface de Gestion des Commandes
 ![Interface Commandes](captures/interface2.png)
 
-*Figure 4: Interface de gestion des commandes avec formulaire de création et liste des commandes*
+*Figure 5: Interface de gestion des commandes avec formulaire de création et liste des commandes*
+
+#### Connexion Utilisateur Client
+![Connexion Client](captures/connexion-client.png)
+
+*Figure 6: Page de connexion pour les utilisateurs clients via Keycloak*
+
+#### Connexion Administrateur Keycloak
+![Connexion Admin Keycloak](captures/connexion-keylock-admin.png)
+
+*Figure 7: Interface de connexion administrateur à la console Keycloak*
+
+#### Panel d'Administration
+![Panel Administration](captures/AdminPanel.png)
+
+*Figure 8: Interface du panel d'administration pour la gestion des produits et commandes*
+
+#### Création d'un Produit par l'Admin
+![Création Produit Admin](captures/Create-product-admin.png)
+
+*Figure 9: Interface d'administration pour la création d'un nouveau produit*
+
+#### Catalogue Produits Admin
+![Catalogue Produits Admin](captures/product-catalog-admin.png)
+
+*Figure 10: Vue du catalogue des produits depuis l'interface d'administration*
+
+#### Création de Commande Client
+![Création Commande Client](captures/crearte-order-client.png)
+
+*Figure 11: Processus de création d'une commande depuis l'interface client*
+
+#### Résumé de Commande
+![Résumé Commande](captures/order-summary.png)
+
+*Figure 12: Affichage du résumé détaillé d'une commande créée*
 
 ### Structure Frontend Détaillée
 
@@ -290,7 +289,7 @@ La communication entre micro-services respecte les principes REST et sécurité.
 
 ![Circuit Breaker Dependencies](captures/circuit-breaker-dependance.png)
 
-*Figure 17: Gestion des dépendances et circuit breaker pour la résilience inter-services*
+*Figure 25: Gestion des dépendances et circuit breaker pour la résilience inter-services*
 
 ### Exemple de Communication
 
@@ -330,7 +329,7 @@ La sécurité constitue un axe central du projet et est entièrement gérée par
 #### 1. Création du Realm
 ![Configuration Realm Keycloak](captures/keyclock-realm.png)
 
-*Figure 7: Configuration du realm "microservices-realm" dans Keycloak*
+*Figure 15: Configuration du realm "microservices-realm" dans Keycloak*
 
 - **Realm Name** : `microservices-realm`
 - **Display Name** : Microservices E-commerce Realm
@@ -339,7 +338,7 @@ La sécurité constitue un axe central du projet et est entièrement gérée par
 #### 2. Création d'un Utilisateur
 ![Création Utilisateur](captures/create-user.keyclock.png)
 
-*Figure 8: Création d'un utilisateur avec credentials et rôles*
+*Figure 16: Création d'un utilisateur avec credentials et rôles*
 
 Configuration utilisateur :
 - **Username** : admin / client_user
@@ -350,7 +349,7 @@ Configuration utilisateur :
 #### 3. Attribution des Rôles
 ![Assignation Rôles](captures/assign-role-keyclock.png)
 
-*Figure 9: Attribution des rôles ADMIN ou CLIENT aux utilisateurs*
+*Figure 17: Attribution des rôles ADMIN ou CLIENT aux utilisateurs*
 
 Rôles disponibles :
 - **ADMIN** : Accès complet CRUD produits + gestion commandes
@@ -570,7 +569,7 @@ Le projet intègre une démarche DevSecOps complète.
 
 ![Installation DevSecOps](captures/installation-devsecops-dependences.png)
 
-*Figure 12: Installation des dépendances DevSecOps (SonarQube, Trivy, OWASP Dependency-Check)*
+*Figure 20: Installation des dépendances DevSecOps (SonarQube, Trivy, OWASP Dependency-Check)*
 
 ### Pipeline DevSecOps Automatisé
 
@@ -592,13 +591,13 @@ Script `devsecops/run-devsecops.sh` exécute le pipeline complet :
 ![Tests Maven 1](captures/mvntest.png)
 ![Tests Maven 2](captures/mvntest2.png)
 
-*Figure 13-14: Exécution réussie des tests unitaires avec couverture JaCoCo*
+*Figure 21-22: Exécution réussie des tests unitaires avec couverture JaCoCo*
 
 #### Vérification Maven
 ![Vérification Maven 1](captures/mvnverify.png)
 ![Vérification Maven 2](captures/mvnverify2.png)
 
-*Figure 15-16: Vérification complète Maven incluant tests d'intégration et qualité*
+*Figure 23-24: Vérification complète Maven incluant tests d'intégration et qualité*
 
 ### Corrections Appliquées
 
@@ -713,7 +712,7 @@ ls -la certificates/
 
 ![Création des Certificats](captures/creation-des-certificats.png)
 
-*Figure 10: Processus de génération des certificats SSL pour mTLS*
+*Figure 18: Processus de génération des certificats SSL pour mTLS*
 
 ### 3. Démarrage des Services d'Infrastructure
 ```bash
@@ -723,7 +722,7 @@ docker compose up -d postgres-product postgres-order keycloak
 
 ![Démarrage Docker](captures/demarrage-docker.png)
 
-*Figure 11: Démarrage réussi des conteneurs Docker avec bases de données et Keycloak*
+*Figure 19: Démarrage réussi des conteneurs Docker avec bases de données et Keycloak*
 
 ### 4. Configuration Keycloak
 Keycloak est initialisé automatiquement via le script `keycloak-init.sh`.
@@ -794,7 +793,7 @@ Chaque service expose une documentation OpenAPI/Swagger interactive et complète
 ### Service Produit - Documentation Swagger
 ![Swagger Produit](captures/swagger-documentation-product-service.png)
 
-*Figure 5: Documentation Swagger du micro-service Produit avec tous les endpoints CRUD*
+*Figure 13: Documentation Swagger du micro-service Produit avec tous les endpoints CRUD*
 
 Endpoints disponibles :
 - `GET /api/products` - Lister tous les produits (ADMIN, CLIENT)
@@ -806,7 +805,7 @@ Endpoints disponibles :
 ### Service Commande - Documentation Swagger
 ![Swagger Commande](captures/swagger-documentation-command-service.png)
 
-*Figure 6: Documentation Swagger du micro-service Commande avec gestion des commandes*
+*Figure 14: Documentation Swagger du micro-service Commande avec gestion des commandes*
 
 Endpoints disponibles :
 - `GET /api/orders` - Lister ses commandes (CLIENT) / Toutes (ADMIN)
